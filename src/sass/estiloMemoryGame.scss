@@ -1,0 +1,27 @@
+// Css raiz do projeto
+
+/*!
+ * Memory Game
+ * Desenvolvido por Andrey da Costa
+ */
+
+// Libs
+@import "../sassLibs/open-iconic-bootstrap";
+@import "../css/bootstrap.css";
+
+// Config
+@import "../sass/config/_variaveis";
+@import "../sass/config/_mixings";
+@import "../sass/config/_placeholder";
+
+// Tipografia
+@import "../sass/_tipografia";
+
+// Geral
+@import "../sass/geral/_reset";
+@import "../sass/geral/_medias";
+@import "../sass/geral/_geral";
+
+// Componentes
+@import "../sass/componentes/_btns";
+

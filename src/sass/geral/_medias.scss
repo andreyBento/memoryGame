@@ -1,0 +1,42 @@
+// Medias Queries
+@mixin media-max320 {
+    @media screen and (max-width:320px){
+        @content;
+    }
+}
+
+@mixin media-max479 {
+    @media screen and (max-width:479px){
+        @content;
+    }
+}
+
+@mixin media-min480 {
+    @media screen and (min-width:480px){
+        @content;
+    }
+}
+
+@mixin media-max767 {
+    @media screen and (max-width:767px){
+        @content;
+    }
+}
+
+@mixin media-min768 {
+    @media screen and (min-width:768px){
+        @content;
+    }
+}
+
+@mixin media-min992 {
+    @media screen and (min-width:992px){
+        @content;
+    }
+}
+
+@mixin media-min1200 {
+    @media screen and (min-width:1200px){
+        @content;
+    }
+}
