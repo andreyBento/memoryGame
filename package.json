@@ -1,0 +1,50 @@
+{
+  "name": "memory-game",
+  "version": ">=1.0.0",
+  "description": "Game in development as a practice of javascript to the nanodegree of web designer advanced from Udacity.",
+  "keywords": [
+    "memory",
+    "game",
+    "javascript"
+  ],
+  // "homepage": "",
+  "bugs": {
+    "url": "https://github.com/andreyBento/memoryGame",
+    "email": "andreybenny@gmail.com"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Andrey da Costa Bento",
+    "email": "andreybenny@gmail.com",
+    "url": "https://github.com/andreyBento"
+  },
+  // "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreyBento/memoryGame.git"
+  },
+  "scripts": {
+    "gulp": "gulp",
+    "checkupdates": "npm-check-updates"
+  },
+  "devDependencies": {
+    "bootstrap": "latest",
+    "browser-sync": "latest",
+    "iconic": "1.1.0",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean": "latest",
+    "gulp-cssmin": "latest",
+    "gulp-htmlmin": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-load-plugins": "latest",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-uglify": "latest",
+    "gulp-usemin": "latest",
+    "html5shiv": "latest",
+    "jquery": "latest",
+    "npm-check-updates": "latest",
+    "respond.js": "latest"
+  }
+}
