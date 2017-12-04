@@ -9,6 +9,8 @@ body {
   background-color: #F3F3F3
 }
 
-h1 {
-    color: $cor-azul;
+.memory-body{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
 }
