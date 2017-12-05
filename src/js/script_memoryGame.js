@@ -3,36 +3,52 @@
  * Desenvolvido por Andrey da Costa
  */
 
-var Card = function(name){
+var Card = function(name, key){
     this.name = name;
+    this.key = key;
     this.template = '<div class="card" data-name="'+ this.name +'">' + '</div>';
 }
 
+Card.prototype.validate = function(){
+
+}
+
+var cards = [
+    new Card('item1', 1),
+    new Card('item2', 2),
+    new Card('item3', 3),
+    new Card('item4', 4),
+    new Card('item5', 5),
+    new Card('item6', 6),
+    new Card('item7', 7),
+    new Card('item8', 8)
+];
+
+var pares = [];
+
+var keyPar = 1;
+for(i = 0; i < cards.length; i++){
+    var nome = 'item' + (i + cards.length + 1);
+    var par = new Card(nome, keyPar);
+    document.querySelector('.memory-body').innerHTML += cards[i].template + par.template;
+    keyPar++;
+    pares.push(par);
+}
 
 
-var card1 = new Card('1'),
-    card1Par = Object.create(card1);
-var card2 = new Card('2'),
-    card2Par = Object.create(card2);
-var card3 = new Card('3'),
-    card3Par = Object.create(card3);
-var card4 = new Card('4'),
-    card4Par = Object.create(card4);
-var card5 = new Card('5'),
-    card5Par = Object.create(card5);
-var card6 = new Card('6'),
-    card6Par = Object.create(card6);
-var card7 = new Card('7'),
-    card7Par = Object.create(card7);
-var card8 = new Card('8'),
-    card8Par = Object.create(card8);
+$('.card').click(function(){
+    var icone = $(this).data('name');
+    if($(this).hasClass('card-open')){
 
-document.querySelector('.memory-body').innerHTML = [card1.template + card1Par.template + card2.template + card2Par.template + card3.template + card3Par.template + card4.template + card4Par.template + card5.template + card5Par.template + card6.template + card6Par.template + card7.template + card7Par.template + card8.template + card8Par.template];
-
-document.querySelector('.card').click(function(){
-    console.log(card1.name);
-    $(this).addClass('card-open');
-    $('.card').map(function(){
-        
-    });
+    } else {
+        $(this).addClass('card-open');
+        for(i = 0; i < cards.length; i++){
+            if(icone == cards[i].name){
+                return this.innerHTML += '<span class="memory '+ icone +'"></span>';
+            } else if (icone == pares[i].name){
+                var iconePar = 'item' + pares[i].key
+                return this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
+            }
+        }
+    }
 });

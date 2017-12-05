@@ -1189,6 +1189,107 @@
  * Memory Game
  * Desenvolvido por Andrey da Costa
  */
+@font-face {
+  font-family: 'memory';
+  src: url("../fonts/memory.eot?75l3nt");
+  src: url("../fonts/memory.eot?75l3nt#iefix") format("embedded-opentype"), url("../fonts/memory.ttf?75l3nt") format("truetype"), url("../fonts/memory.woff?75l3nt") format("woff"), url("../fonts/memory.svg?75l3nt#memory") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 18, src/sass/_tipografia.scss */
+.memory {
+  font-family: 'memory' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 30, src/sass/_tipografia.scss */
+.item1:before {
+  content: "\e900";
+}
+
+/* line 31, src/sass/_tipografia.scss */
+.item2:before {
+  content: "\e901";
+}
+
+/* line 32, src/sass/_tipografia.scss */
+.item3:before {
+  content: "\e902";
+}
+
+/* line 33, src/sass/_tipografia.scss */
+.item4:before {
+  content: "\e903";
+}
+
+/* line 34, src/sass/_tipografia.scss */
+.item5:before {
+  content: "\e904";
+}
+
+/* line 35, src/sass/_tipografia.scss */
+.item6:before {
+  content: "\e905";
+}
+
+/* line 36, src/sass/_tipografia.scss */
+.item7:before {
+  content: "\e906";
+}
+
+/* line 37, src/sass/_tipografia.scss */
+.item8:before {
+  content: "\e907";
+}
+
+/* line 38, src/sass/_tipografia.scss */
+.item9:before {
+  content: "\e908";
+}
+
+/* line 39, src/sass/_tipografia.scss */
+.item10:before {
+  content: "\e909";
+}
+
+/* line 40, src/sass/_tipografia.scss */
+.item11:before {
+  content: "\e90a";
+}
+
+/* line 41, src/sass/_tipografia.scss */
+.item12:before {
+  content: "\e90b";
+}
+
+/* line 42, src/sass/_tipografia.scss */
+.item13:before {
+  content: "\e90c";
+}
+
+/* line 43, src/sass/_tipografia.scss */
+.item14:before {
+  content: "\e90d";
+}
+
+/* line 44, src/sass/_tipografia.scss */
+.item15:before {
+  content: "\e90e";
+}
+
+/* line 45, src/sass/_tipografia.scss */
+.item16:before {
+  content: "\e90f";
+}
+
 /* ==========================================================================
    Reset
    ========================================================================== */
@@ -1268,23 +1369,45 @@ body {
    ========================================================================== */
 /* line 5, src/sass/componentes/_card.scss */
 .card {
+  position: relative;
   width: 130px;
   height: 160px;
   margin-right: 10px;
   margin-bottom: 10px;
   color: #5DA4CF;
   background-color: #5DA4CF;
+  font-size: 48px;
   border-radius: 8px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
   transition: 1s;
+  cursor: pointer;
 }
 
-/* line 15, src/sass/componentes/_card.scss */
+/* line 18, src/sass/componentes/_card.scss */
 .card.card-open {
   background-color: #DCE5FD;
-  color: #5DA4CF;
   box-shadow: none;
   transform: rotateY(180deg);
+}
+
+/* line 23, src/sass/componentes/_card.scss */
+.card.success {
+  background-color: #E1FDDC;
+  color: #A2CF5D;
+}
+
+/* line 27, src/sass/componentes/_card.scss */
+.card.fail {
+  background-color: #FDDCDC;
+  color: #CF5D64;
+}
+
+/* line 31, src/sass/componentes/_card.scss */
+.card span {
+  position: relative;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /*# sourceMappingURL=estiloMemoryGame.css.map */

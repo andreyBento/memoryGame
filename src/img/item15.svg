@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="73px" height="59px" viewBox="0 0 73 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Star 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="linha-4-copy" transform="translate(-321.000000, -47.000000)" fill="#5DA4CF">
+            <g id="Group-2-Copy" transform="translate(295.000000, 0.000000)">
+                <path d="M50.2157491,107.474439 C44.0182765,108.606103 37.0667901,103.122886 29.3612897,91.0247865 L67.8612897,83.9946499 L27.5882182,87.4946499 L66.5882182,82.6497865 L84.5882182,44.4946499 L67.8612897,83.9946499 L89.4978255,46.4946499 C97.4943614,59.2684676 99.6873715,68.7842122 96.0768559,75.0418839 C92.4663402,81.2995556 83.0611515,84.2838109 67.8612897,83.9946499 C62.2950685,98.5161781 56.4132216,106.342774 50.2157491,107.474439 Z" id="Star-4" transform="translate(62.674858, 76.057146) rotate(6.000000) translate(-62.674858, -76.057146) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
