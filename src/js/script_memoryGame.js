@@ -35,20 +35,44 @@ for(i = 0; i < cards.length; i++){
     pares.push(par);
 }
 
+var teste = [];
 
 $('.card').click(function(){
     var icone = $(this).data('name');
-    if($(this).hasClass('card-open')){
 
-    } else {
+    // Adiciona classe de abetura na carta e icone interno a ela
+    if(!$(this).hasClass('card-open')){
         $(this).addClass('card-open');
         for(i = 0; i < cards.length; i++){
             if(icone == cards[i].name){
-                return this.innerHTML += '<span class="memory '+ icone +'"></span>';
+                this.innerHTML += '<span class="memory '+ icone +'"></span>';
             } else if (icone == pares[i].name){
                 var iconePar = 'item' + pares[i].key
-                return this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
+                this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
             }
         }
     }
+
+    $('.card').each(function(){
+        if($(this).hasClass('card-open')){
+            var that = $(this);
+            for(i = 1; i < teste.length; i++){
+
+                for(j = 0; j < cards.length; j++){
+
+                    if($(that).data('name') == cards[j].name){
+                        var keyAtual = cards[j].key;
+                        console.log(keyAtual);
+                    } else if (icone == pares[j].name){
+                        var keyAtual = pares[j].key;
+                        console.log(keyAtual);
+                    }
+
+                }
+
+            }
+            teste.push($(this));
+        }
+    });
+
 });
