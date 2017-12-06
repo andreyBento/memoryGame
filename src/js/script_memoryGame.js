@@ -3,104 +3,76 @@
  * Desenvolvido por Andrey da Costa
  */
 
+var Game = function(stageParam){
+    this.cards = [];
+    this.cardsMirror = [];
+    this.actualStage = this.stage(stageParam);
+}
+
 var Card = function(name, key){
     this.name = name;
     this.key = key;
-    this.template = '<button class="card" data-name="'+ this.name +'">' + '</button>';
+    this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
-Card.prototype.validate = function(){
+Game.prototype.stage = function(stage){
 
+    if(stage == 1){
+        this.card(8);
+        this.born();
+    } else if(stage == 2){
+        this.card(16);
+        this.born();
+    } else if(stage == 3){
+        this.card(32);
+        this.born();
+    }
 }
 
-var cards = [
-    new Card('item1', 1),
-    new Card('item2', 2),
-    new Card('item3', 3),
-    new Card('item4', 4),
-    new Card('item5', 5),
-    new Card('item6', 6),
-    new Card('item7', 7),
-    new Card('item8', 8)
-];
-
-var pares = [];
-
-for(i = 0; i < cards.length; i++){
-    var nome = 'item' + (i + cards.length + 1);
-    pares.push(new Card(nome, cards[i].key));
+Game.prototype.card = function(quantity){
+    for(i = 0; i < quantity; i++){
+        let cardName = 'item' + (i + 1),
+            cardKey = i + 1;
+        this.cards.push(new Card(cardName, cardKey));
+    }
+    for(i = 0; i < quantity; i++){
+        cardName = 'item' + (i + this.cards.length + 1),
+        cardKey = this.cards[i].key;
+        this.cardsMirror.push(new Card(cardName, cardKey));
+    }
 }
 
-var teste = cards.concat(pares);
+Game.prototype.born = function(){
 
-var teste3 = teste.length;
-for(i = 0; i < teste3; i++){
-    var teste2 = Math.floor(Math.random() * (teste.length - 0)) + 0;
-    document.querySelector('.memory-body').innerHTML += teste[teste2].template;
-    teste.splice(teste2, 1);
-}
+    const totalCards = this.cards.concat(this.cardsMirror),
+          arrayLength = totalCards.length;
+    for(i = 0; i < arrayLength; i++){
+        const item = Math.floor(Math.random() * (totalCards.length - 0)) + 0;
+        document.querySelector('.memory-body').innerHTML += totalCards[item].template;
+        totalCards.splice(item, 1);
+    }
 
-var open = [];
+    var cardElementArray = document.querySelectorAll('.card');
 
-$('.card').click(function(){
-    var dataIcone = $(this).data('name');
-
-    // Adiciona classe de abetura na carta e icone interno a ela
-    if(!$(this).hasClass('card-open')){
-        $(this).addClass('card-open');
-        $(this).attr('disabled', 'disabled');
-        for(i = 0; i < cards.length; i++){
-            if(dataIcone == cards[i].name){
-                if(this.children.length < 1){
-                    this.innerHTML += '<span class="memory '+ cards[i].name +'"></span>';
-                }
-                open.push(cards[i].key);
-            } else if (dataIcone == pares[i].name){
-                var iconePar = 'item' + pares[i].key;
-                if(this.children.length < 1){
-                    this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
-                }
-                open.push(pares[i].key);
+    for(i = 0; i < cardElementArray.length; i++){
+        var dataIcone = cardElementArray[i].getAttribute('data-name');
+        for(j = 0; j < this.cards.length; j++){
+            if(dataIcone == this.cards[j].name){
+                cardElementArray[i].innerHTML += '<span class="memory '+ this.cards[j].name +'"></span>';
+            } else if (dataIcone == this.cardsMirror[j].name){
+                var iconePar = 'item' + this.cardsMirror[j].key;
+                cardElementArray[i].innerHTML += '<span class="memory '+ iconePar +'"></span>';
             }
         }
     }
 
-    // Checa se deu mete
-    if(open.length == 2){
-        if(open[0] == open[1]){
-            $('.card-open').each(function(){
-                if(!$(this).hasClass('fail')){
-                    $(this).addClass('success');
-                    $(this).removeClass('card-open');
-                    $(this).attr('disabled', 'disabled');
-                }
-            });
-            open = [];
-        } else {
-            $('.card-open').each(function(){
-                $(this).addClass('fail');
-            });
-            open = [];
+    setTimeout(function(){
+        for(i = 0; i < cardElementArray.length; i++){
+            cardElementArray[i].setAttribute('class', 'card');
+            cardElementArray[i].disabled = false;
+            cardElementArray[i].innerHTML = '';
         }
-    }
+    }, 2000);
+}
 
-    // remove falha de mete
-    if($(this).hasClass('fail')){
-        setTimeout(function(){
-            $('.fail').each(function(){
-                $(this).removeClass('card-open');
-                $(this).removeClass('fail');
-                $(this).removeAttr('disabled');
-            });
-        }, 1000);
-    }
-
-
-    // Valida fim de jogo
-    var sucesso = $('.success');
-    var cartas = $('.card');
-
-    if(sucesso.length == cartas.length){
-        alert('Você ganhou!');
-    }
-});
+new Game(1);
