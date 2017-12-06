@@ -11,27 +11,29 @@
     color: #5DA4CF;
     background-color: #5DA4CF;
     font-size: 48px;
+    border: none;
     border-radius: 8px;
     box-shadow: 0 0 3px 0 rgba(0,0,0, 0.4);
     transition: 1s;
-    cursor: pointer;
+    transform: rotateY(180deg);
     &.card-open{
         background-color: #DCE5FD;
         box-shadow: none;
-        transform: rotateY(180deg);
+        transform: rotateY(0);
     }
     &.success{
         background-color: #E1FDDC;
         color: #A2CF5D;
+        box-shadow: none;
+        transform: rotateY(0);
     }
     &.fail{
         background-color: #FDDCDC;
         color: #CF5D64;
+        box-shadow: none;
+        transform: rotateY(0);
     }
-    span{
-        position: relative;
-        display: block;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+    &:hover,
+    &:focus,
+    &:focus:hover{ outline: none; }
 }

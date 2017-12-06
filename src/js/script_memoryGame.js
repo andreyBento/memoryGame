@@ -6,7 +6,7 @@
 var Card = function(name, key){
     this.name = name;
     this.key = key;
-    this.template = '<div class="card" data-name="'+ this.name +'">' + '</div>';
+    this.template = '<button class="card" data-name="'+ this.name +'">' + '</button>';
 }
 
 Card.prototype.validate = function(){
@@ -35,44 +35,65 @@ for(i = 0; i < cards.length; i++){
     pares.push(par);
 }
 
-var teste = [];
+var open = [];
 
 $('.card').click(function(){
-    var icone = $(this).data('name');
+    var dataIcone = $(this).data('name');
 
     // Adiciona classe de abetura na carta e icone interno a ela
     if(!$(this).hasClass('card-open')){
         $(this).addClass('card-open');
+        $(this).attr('disabled', 'disabled');
         for(i = 0; i < cards.length; i++){
-            if(icone == cards[i].name){
-                this.innerHTML += '<span class="memory '+ icone +'"></span>';
-            } else if (icone == pares[i].name){
-                var iconePar = 'item' + pares[i].key
-                this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
+            if(dataIcone == cards[i].name){
+                if(this.children.length < 1){
+                    this.innerHTML += '<span class="memory '+ cards[i].name +'"></span>';
+                }
+                open.push(cards[i].key);
+            } else if (dataIcone == pares[i].name){
+                var iconePar = 'item' + pares[i].key;
+                if(this.children.length < 1){
+                    this.innerHTML += '<span class="memory '+ iconePar +'"></span>';
+                }
+                open.push(pares[i].key);
             }
         }
     }
 
-    $('.card').each(function(){
-        if($(this).hasClass('card-open')){
-            var that = $(this);
-            for(i = 1; i < teste.length; i++){
-
-                for(j = 0; j < cards.length; j++){
-
-                    if($(that).data('name') == cards[j].name){
-                        var keyAtual = cards[j].key;
-                        console.log(keyAtual);
-                    } else if (icone == pares[j].name){
-                        var keyAtual = pares[j].key;
-                        console.log(keyAtual);
-                    }
-
-                }
-
-            }
-            teste.push($(this));
+    // Checa se deu mete
+    if(open.length == 2){
+        if(open[0] == open[1]){
+            $('.card-open').each(function(){
+                $(this).addClass('success');
+                $(this).removeClass('card-open');
+                $(this).attr('disabled', 'disabled');
+            });
+            open = [];
+        } else {
+            $('.card-open').each(function(){
+                $(this).addClass('fail');
+            });
+            open = [];
         }
-    });
+    }
 
+    // remove falha de mete
+    if($(this).hasClass('fail')){
+        setTimeout(function(){
+            $('.fail').each(function(){
+                $(this).removeClass('card-open');
+                $(this).removeClass('fail');
+                $(this).removeAttr('disabled');
+            });
+        }, 1000);
+    }
+
+
+    // Valida fim de jogo
+    var teste = $('.success');
+    var teste2 = $('.card');
+
+    if(teste.length == teste2.length){
+        alert('Você ganhou!');
+    }
 });
