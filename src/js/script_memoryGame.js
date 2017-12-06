@@ -26,13 +26,18 @@ var cards = [
 
 var pares = [];
 
-var keyPar = 1;
 for(i = 0; i < cards.length; i++){
     var nome = 'item' + (i + cards.length + 1);
-    var par = new Card(nome, keyPar);
-    document.querySelector('.memory-body').innerHTML += cards[i].template + par.template;
-    keyPar++;
-    pares.push(par);
+    pares.push(new Card(nome, cards[i].key));
+}
+
+var teste = cards.concat(pares);
+
+var teste3 = teste.length;
+for(i = 0; i < teste3; i++){
+    var teste2 = Math.floor(Math.random() * (teste.length - 0)) + 0;
+    document.querySelector('.memory-body').innerHTML += teste[teste2].template;
+    teste.splice(teste2, 1);
 }
 
 var open = [];
@@ -64,9 +69,11 @@ $('.card').click(function(){
     if(open.length == 2){
         if(open[0] == open[1]){
             $('.card-open').each(function(){
-                $(this).addClass('success');
-                $(this).removeClass('card-open');
-                $(this).attr('disabled', 'disabled');
+                if(!$(this).hasClass('fail')){
+                    $(this).addClass('success');
+                    $(this).removeClass('card-open');
+                    $(this).attr('disabled', 'disabled');
+                }
             });
             open = [];
         } else {
@@ -90,10 +97,10 @@ $('.card').click(function(){
 
 
     // Valida fim de jogo
-    var teste = $('.success');
-    var teste2 = $('.card');
+    var sucesso = $('.success');
+    var cartas = $('.card');
 
-    if(teste.length == teste2.length){
+    if(sucesso.length == cartas.length){
         alert('Você ganhou!');
     }
 });
