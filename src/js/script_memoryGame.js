@@ -3,13 +3,14 @@
  * Desenvolvido por Andrey da Costa
  */
 
-var Game = function(stageParam){
+const Game = function(stageParam){
     this.cards = [];
     this.cardsMirror = [];
+    this.open = [];
     this.actualStage = this.stage(stageParam);
 }
 
-var Card = function(name, key){
+const Card = function(name, key){
     this.name = name;
     this.key = key;
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
@@ -18,18 +19,21 @@ var Card = function(name, key){
 Game.prototype.stage = function(stage){
 
     if(stage == 1){
-        this.card(8);
+        this.createCard(4);
         this.born();
     } else if(stage == 2){
-        this.card(16);
+        this.createCard(8);
         this.born();
     } else if(stage == 3){
-        this.card(32);
+        this.createCard(16);
+        this.born();
+    } else if(stage == 4){
+        this.createCard(32);
         this.born();
     }
 }
 
-Game.prototype.card = function(quantity){
+Game.prototype.createCard = function(quantity){
     for(i = 0; i < quantity; i++){
         let cardName = 'item' + (i + 1),
             cardKey = i + 1;
@@ -42,37 +46,104 @@ Game.prototype.card = function(quantity){
     }
 }
 
+Game.prototype.addIcon = function(item){
+    let dataIcone = item.getAttribute('data-name');
+
+    for(a = 0; a < this.cards.length; a++){
+        if(dataIcone == this.cards[a].name){
+            item.innerHTML += '<span class="memory '+ this.cards[a].name +'"></span>';
+        } else if (dataIcone == this.cardsMirror[a].name){
+            let iconePar = 'item' + this.cardsMirror[a].key;
+            item.innerHTML += '<span class="memory '+ iconePar +'"></span>';
+        }
+    }
+}
+
+Game.prototype.unturn = function(elementsArray){
+    setTimeout(() => {
+        for(i = 0; i < elementsArray.length; i++){
+            elementsArray[i].setAttribute('class', 'card');
+            elementsArray[i].disabled = false;
+            elementsArray[i].innerHTML = '';
+        }
+    }, 2000);
+}
+
+Game.prototype.checkMatch = function(){
+    const cardOpenArray = document.querySelectorAll('.card-open');
+    if(this.open.length == 2){
+        if(this.open[0] == this.open[1]){
+            for(i = 0; i < cardOpenArray.length; i++){
+                let cardClass = cardOpenArray[i].getAttribute('class');
+                if(cardClass == 'card card-open'){
+                    cardOpenArray[i].setAttribute('class', 'card success');
+                }
+            }
+            return this.open = [];
+        } else {
+            for(i = 0; i < cardOpenArray.length; i++){
+                cardOpenArray[i].setAttribute('class', 'card fail');
+            }
+            this.unturn(cardOpenArray);
+            return this.open = [];
+        }
+    }
+}
+
+Game.prototype.turnCard = function(item){
+    let itemClass = item.getAttribute('class'),
+        dataIcone = item.getAttribute('data-name');
+
+    if(itemClass == 'card'){
+        item.setAttribute('class','card card-open');
+        item.disabled = true;
+        this.addIcon(item);
+        for(i = 0; i < this.cards.length; i++){
+            if(dataIcone == this.cards[i].name){
+                this.open.push(this.cards[i].key);
+            } else if (dataIcone == this.cardsMirror[i].name){
+                this.open.push(this.cardsMirror[i].key);
+            }
+        }
+    }
+    this.checkMatch();
+}
+
 Game.prototype.born = function(){
 
-    const totalCards = this.cards.concat(this.cardsMirror),
-          arrayLength = totalCards.length;
+    let totalCards = this.cards.concat(this.cardsMirror),
+        arrayLength = totalCards.length;
     for(i = 0; i < arrayLength; i++){
         const item = Math.floor(Math.random() * (totalCards.length - 0)) + 0;
         document.querySelector('.memory-body').innerHTML += totalCards[item].template;
         totalCards.splice(item, 1);
     }
 
-    var cardElementArray = document.querySelectorAll('.card');
-
+    let cardElementArray = document.querySelectorAll('.card');
     for(i = 0; i < cardElementArray.length; i++){
-        var dataIcone = cardElementArray[i].getAttribute('data-name');
-        for(j = 0; j < this.cards.length; j++){
-            if(dataIcone == this.cards[j].name){
-                cardElementArray[i].innerHTML += '<span class="memory '+ this.cards[j].name +'"></span>';
-            } else if (dataIcone == this.cardsMirror[j].name){
-                var iconePar = 'item' + this.cardsMirror[j].key;
-                cardElementArray[i].innerHTML += '<span class="memory '+ iconePar +'"></span>';
-            }
-        }
+        this.addIcon(cardElementArray[i]);
     }
 
-    setTimeout(function(){
-        for(i = 0; i < cardElementArray.length; i++){
-            cardElementArray[i].setAttribute('class', 'card');
-            cardElementArray[i].disabled = false;
-            cardElementArray[i].innerHTML = '';
-        }
-    }, 2000);
+    this.unturn(cardElementArray);
 }
 
-new Game(1);
+Game.prototype.checkFinish = function(){
+    const cardSuccessArray = document.querySelectorAll('.success');
+    if(cardSuccessArray.length == cardsArray.length){
+        alert('Você Ganhou!');
+    }
+}
+
+Game.prototype.cardClick = function(item){
+    this.turnCard(item);
+    this.checkFinish();
+}
+
+const game = new Game(1);
+
+const cardsArray = document.querySelectorAll('.card');
+for(i = 0; i < cardsArray.length; i++){
+    cardsArray[i].addEventListener('click', function(){
+        game.cardClick(this);
+    });
+}

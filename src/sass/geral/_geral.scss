@@ -4,13 +4,15 @@
 
 
 body {
-  font-family: 'robotoregular', sans-serif;
+  font-family: 'Annie Use Your Telescope', cursive;
   color: #666666;
   background-color: #F3F3F3
 }
 
 .memory-body{
   display: flex;
+  vertical-align: middle;
   flex-wrap: wrap;
   text-align: center;
+  max-width: 590px;
 }
