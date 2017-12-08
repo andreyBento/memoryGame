@@ -6,8 +6,8 @@
 const Game = function(stageParam){
     this.cards = [];
     this.cardsMirror = [];
-    this.open = [];
-    this.actualStage = this.stage(stageParam);
+    this.cardsOpen = [];
+    this.begin(stageParam);
 }
 
 const Card = function(name, key){
@@ -16,31 +16,70 @@ const Card = function(name, key){
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
-Game.prototype.stage = function(stage){
+Game.prototype.begin = function(stageParam){
+    this.stage(stageParam);
+    this.timer();
+    // this.moves();
+}
 
+Game.prototype.stage = function(stage){
+    const body = document.querySelector('.memory-body');
     if(stage == 1){
         this.createCard(4);
-        this.born();
     } else if(stage == 2){
-        this.createCard(8);
-        this.born();
+        this.createCard(12);
     } else if(stage == 3){
         this.createCard(16);
-        this.born();
-    } else if(stage == 4){
-        this.createCard(32);
-        this.born();
     }
+    this.born();
+    body.setAttribute('class','memory-body stage'+ stage);
 }
+
+Game.prototype.timer = function(){
+    let header = document.querySelector('.memory-header'),
+        time = '00' + ':' + '00',
+        min = '00',
+        sec = '00';
+
+    header.innerHTML += '<p class="timer"><span id="timerHtml">'+ time +'</span> : Tempo</p>';
+    let timerHtml = document.getElementById('timerHtml');
+
+    const updateTime = setInterval(function(){
+        if(sec < 59){
+            sec++;
+            sec = addZero(sec);
+        } else{
+            min++;
+            min = addZero(min);
+            sec = '00';
+        }
+        time = min + ':' + sec;
+        timerHtml.innerHTML = time;
+    }, 1000);
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+}
+
+// Game.prototype.moves = function(){
+//     let header = document.querySelector('.memory-header');
+//     header.innerHTML += '<p class="timer"><span id="timerHtml">'+ time +'</span> : Tempo</p>';
+
+
+// }
 
 Game.prototype.createCard = function(quantity){
     for(i = 0; i < quantity; i++){
         let cardName = 'item' + (i + 1),
             cardKey = i + 1;
         this.cards.push(new Card(cardName, cardKey));
-    }
-    for(i = 0; i < quantity; i++){
-        cardName = 'item' + (i + this.cards.length + 1),
+
+        cardName = 'item' + (i + quantity + 1),
         cardKey = this.cards[i].key;
         this.cardsMirror.push(new Card(cardName, cardKey));
     }
@@ -71,21 +110,21 @@ Game.prototype.unturn = function(elementsArray){
 
 Game.prototype.checkMatch = function(){
     const cardOpenArray = document.querySelectorAll('.card-open');
-    if(this.open.length == 2){
-        if(this.open[0] == this.open[1]){
+    if(this.cardsOpen.length == 2){
+        if(this.cardsOpen[0] == this.cardsOpen[1]){
             for(i = 0; i < cardOpenArray.length; i++){
                 let cardClass = cardOpenArray[i].getAttribute('class');
                 if(cardClass == 'card card-open'){
                     cardOpenArray[i].setAttribute('class', 'card success');
                 }
             }
-            return this.open = [];
+            return this.cardsOpen = [];
         } else {
             for(i = 0; i < cardOpenArray.length; i++){
                 cardOpenArray[i].setAttribute('class', 'card fail');
             }
             this.unturn(cardOpenArray);
-            return this.open = [];
+            return this.cardsOpen = [];
         }
     }
 }
@@ -100,9 +139,9 @@ Game.prototype.turnCard = function(item){
         this.addIcon(item);
         for(i = 0; i < this.cards.length; i++){
             if(dataIcone == this.cards[i].name){
-                this.open.push(this.cards[i].key);
+                this.cardsOpen.push(this.cards[i].key);
             } else if (dataIcone == this.cardsMirror[i].name){
-                this.open.push(this.cardsMirror[i].key);
+                this.cardsOpen.push(this.cardsMirror[i].key);
             }
         }
     }
@@ -139,7 +178,7 @@ Game.prototype.cardClick = function(item){
     this.checkFinish();
 }
 
-const game = new Game(1);
+const game = new Game(3);
 
 const cardsArray = document.querySelectorAll('.card');
 for(i = 0; i < cardsArray.length; i++){

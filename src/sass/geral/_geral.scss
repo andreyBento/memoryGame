@@ -4,15 +4,46 @@
 
 
 body {
-  font-family: 'Annie Use Your Telescope', cursive;
+  font-family: 'Roboto', cursive;
   color: #666666;
   background-color: #F3F3F3
 }
 
-.memory-body{
+.memory-header{
+  height: 90px;
+  max-width: 960px;
+  margin: auto;
   display: flex;
-  vertical-align: middle;
+  align-content: center;
+  align-items: center;
+  .timer{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #c1c1c1;
+    span{ 
+      vertical-align: middle;
+      margin-right: 5px;
+      font-size: 30px;
+      font-weight: 500;
+      text-transform: none;
+      color: #666;
+    }
+  }
+}
+
+.memory-body{
+  position: relative;
+  top: calc(50% - 90px);
+  transform: translateY(-50%);
+
+  display: flex;
   flex-wrap: wrap;
+  align-content: center;
+  margin: auto;
   text-align: center;
-  max-width: 590px;
+  &.stage1{ max-width: 480px; }
+  &.stage2{ max-width: 720px; }
+  &.stage3{ max-width: 960px; }
 }
