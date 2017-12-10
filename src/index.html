@@ -11,12 +11,21 @@
 </head>
 <body>
     <main>
-        <header class="memory-header"></header>
+        <header class="memory-header">
+            <p class="timer">
+                <span id="timerHtml"></span>
+                : Time
+            </p>
+            <p class="movements">
+                Moves :
+                <span id="movesHtml">0</span>
+            </p>
+        </header>
         <section class="memory-body"></section>
-        <aside class="memory-ranking"></aside>
+        <aside class="memory-ranking">
+            <h2>Ranking</h2>
+        </aside>
     </main>
-     <script src="js/jquery.js"></script>
-     <script src="js/bootstrap.js"></script>
      <script src="js/script_memoryGame.js"></script>
 </body>
 </html>

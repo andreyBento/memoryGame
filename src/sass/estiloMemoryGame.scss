@@ -7,7 +7,6 @@
 
 // Libs
 @import "../sassLibs/open-iconic-bootstrap";
-@import "../css/bootstrap.css";
 
 // Config
 @import "../sass/config/_variaveis";
@@ -17,12 +16,12 @@
 // Tipografia
 @import "../sass/_tipografia";
 
+// Componentes
+@import "../sass/componentes/_btns";
+@import "../sass/componentes/_card";
+@import "../sass/componentes/_ranking";
+
 // Geral
 @import "../sass/geral/_reset";
 @import "../sass/geral/_medias";
 @import "../sass/geral/_geral";
-
-// Componentes
-@import "../sass/componentes/_btns";
-@import "../sass/componentes/_card";
-

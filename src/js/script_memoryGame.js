@@ -7,6 +7,7 @@ const Game = function(stageParam){
     this.cards = [];
     this.cardsMirror = [];
     this.cardsOpen = [];
+    this.movements = 0;
     this.begin(stageParam);
 }
 
@@ -16,33 +17,41 @@ const Card = function(name, key){
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
+const Ranking = function(stageParam){
+    this.time = window.localStorage.time;
+    this.moves = window.localStorage.moves;
+    this.born();
+}
+
+Ranking.prototype.born = function(){
+    const rankingHtml = document.getElementsByClassName('memory-ranking');
+}
+
 Game.prototype.begin = function(stageParam){
     this.stage(stageParam);
     this.timer();
-    // this.moves();
 }
 
-Game.prototype.stage = function(stage){
+Game.prototype.stage = function(stageParam){
     const body = document.querySelector('.memory-body');
-    if(stage == 1){
+    if(stageParam == 1){
         this.createCard(4);
-    } else if(stage == 2){
+    } else if(stageParam == 2){
         this.createCard(12);
-    } else if(stage == 3){
+    } else if(stageParam == 3){
         this.createCard(16);
     }
     this.born();
-    body.setAttribute('class','memory-body stage'+ stage);
+    body.setAttribute('class','memory-body stage'+ stageParam);
 }
 
 Game.prototype.timer = function(){
-    let header = document.querySelector('.memory-header'),
+    let timerHtml = document.getElementById('timerHtml'),
         time = '00' + ':' + '00',
         min = '00',
         sec = '00';
 
-    header.innerHTML += '<p class="timer"><span id="timerHtml">'+ time +'</span> : Tempo</p>';
-    let timerHtml = document.getElementById('timerHtml');
+    timerHtml.innerHTML = time;
 
     const updateTime = setInterval(function(){
         if(sec < 59){
@@ -64,14 +73,17 @@ Game.prototype.timer = function(){
         return i;
     }
 
+    this.stop = function(){ 
+        clearInterval(updateTime);
+    }
+
 }
 
-// Game.prototype.moves = function(){
-//     let header = document.querySelector('.memory-header');
-//     header.innerHTML += '<p class="timer"><span id="timerHtml">'+ time +'</span> : Tempo</p>';
-
-
-// }
+Game.prototype.moves = function(){
+    this.movements++;
+    let movesHtml = document.getElementById('movesHtml');
+    movesHtml.innerHTML =  this.movements;
+}
 
 Game.prototype.createCard = function(quantity){
     for(i = 0; i < quantity; i++){
@@ -169,16 +181,21 @@ Game.prototype.born = function(){
 Game.prototype.checkFinish = function(){
     const cardSuccessArray = document.querySelectorAll('.success');
     if(cardSuccessArray.length == cardsArray.length){
+        this.stop();
+        this.ranking = new Ranking();
+        window.localStorage.time = document.getElementById('timerHtml').innerHTML;
+        window.localStorage.moves = document.getElementById('movesHtml').innerHTML;
         alert('Você Ganhou!');
     }
 }
 
 Game.prototype.cardClick = function(item){
+    this.moves();
     this.turnCard(item);
     this.checkFinish();
 }
 
-const game = new Game(3);
+const game = new Game(1);
 
 const cardsArray = document.querySelectorAll('.card');
 for(i = 0; i < cardsArray.length; i++){

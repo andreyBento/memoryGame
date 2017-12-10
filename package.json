@@ -26,7 +26,6 @@
     "checkupdates": "npm-check-updates"
   },
   "devDependencies": {
-    "bootstrap": "bootstrap@4.0.0-beta.2",
     "browser-sync": "latest",
     "gulp": "latest",
     "gulp-autoprefixer": "latest",
@@ -39,7 +38,6 @@
     "gulp-sourcemaps": "latest",
     "gulp-uglify": "latest",
     "gulp-usemin": "latest",
-    "jquery": "latest",
     "npm-check-updates": "latest"
   }
 }

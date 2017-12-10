@@ -9,14 +9,23 @@ body {
   background-color: #F3F3F3
 }
 
+.container{
+  width: 90%;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
 .memory-header{
-  height: 90px;
+  height: 60px;
   max-width: 960px;
-  margin: auto;
+  margin: 0 auto;
   display: flex;
   align-content: center;
   align-items: center;
-  .timer{
+  justify-content: space-between;
+  .timer,
+  .movements{
+    margin-top: 0;
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 500;
@@ -35,14 +44,15 @@ body {
 
 .memory-body{
   position: relative;
-  top: calc(50% - 90px);
-  transform: translateY(-50%);
-
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   margin: auto;
   text-align: center;
+  @media (min-width: 1440px){
+    top: calc(50% - 90px);
+    transform: translateY(-50%);
+  }
   &.stage1{ max-width: 480px; }
   &.stage2{ max-width: 720px; }
   &.stage3{ max-width: 960px; }
