@@ -1289,9 +1289,85 @@
   content: "\e90f";
 }
 
+/* line 46, src/sass/_tipografia.scss */
+.item17:before {
+  content: "\e910";
+}
+
+/* line 47, src/sass/_tipografia.scss */
+.item18:before {
+  content: "\e911";
+}
+
+/* line 48, src/sass/_tipografia.scss */
+.item19:before {
+  content: "\e912";
+}
+
+/* line 49, src/sass/_tipografia.scss */
+.item20:before {
+  content: "\e913";
+}
+
+/* line 50, src/sass/_tipografia.scss */
+.item21:before {
+  content: "\e914";
+}
+
+/* line 51, src/sass/_tipografia.scss */
+.item22:before {
+  content: "\e915";
+}
+
+/* line 52, src/sass/_tipografia.scss */
+.item23:before {
+  content: "\e916";
+}
+
+/* line 53, src/sass/_tipografia.scss */
+.item24:before {
+  content: "\e917";
+}
+
+/* line 54, src/sass/_tipografia.scss */
+.item25:before {
+  content: "\e918";
+}
+
+/* line 55, src/sass/_tipografia.scss */
+.item26:before {
+  content: "\e919";
+}
+
+/* line 56, src/sass/_tipografia.scss */
+.item27:before {
+  content: "\e91a";
+}
+
+/* line 57, src/sass/_tipografia.scss */
+.item28:before {
+  content: "\e91b";
+}
+
+/* line 58, src/sass/_tipografia.scss */
+.item29:before {
+  content: "\e91c";
+}
+
 /* ==========================================================================
    Botoes
    ========================================================================== */
+/* line 5, src/sass/componentes/_btns.scss */
+.btn {
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  font-size: 16px;
+  color: #666;
+  border: none;
+  border-radius: 7px;
+  transition: .6s;
+}
+
 /* ==========================================================================
    Cards
    ========================================================================== */
@@ -1379,19 +1455,139 @@
    ========================================================================== */
 /* line 5, src/sass/componentes/_ranking.scss */
 .memory-ranking {
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 20px;
   width: 100%;
-  max-width: 300px;
+  height: calc(100% - 40px);
+  max-width: 290px;
   background-color: #fff;
+  overflow: hidden;
 }
 
-/* line 12, src/sass/componentes/_ranking.scss */
+/* line 16, src/sass/componentes/_ranking.scss */
 .memory-ranking h2 {
   margin-top: 0;
   margin-bottom: 0;
   text-align: center;
-  font-size: 36px;
+  font-size: 30px;
+  font-weight: 400;
   color: #666;
+}
+
+/* line 24, src/sass/componentes/_ranking.scss */
+.memory-ranking ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* line 29, src/sass/componentes/_ranking.scss */
+.user-list__save {
+  color: #939393;
+}
+
+/* line 31, src/sass/componentes/_ranking.scss */
+.user-list__save .btn-dropdown {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: transparent;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+/* line 39, src/sass/componentes/_ranking.scss */
+.user-list__save .btn-dropdown span.oi {
+  margin-top: 2px;
+  float: right;
+  font-size: 12px;
+}
+
+/* line 44, src/sass/componentes/_ranking.scss */
+.user-list__save .btn-dropdown.active {
+  background-color: #F7F7F7;
+  border-color: #F0D84C;
+}
+
+/* line 47, src/sass/componentes/_ranking.scss */
+.user-list__save .btn-dropdown.active + ol {
+  background-color: #f7f7f7;
+  display: block;
+}
+
+/* line 50, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list {
+  display: none;
+  height: 100%;
+  overflow: hidden;
+  transition: .6s;
+}
+
+/* line 55, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item {
+  padding: 15px;
+  font-size: 14px;
+}
+
+/* line 58, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item h4 {
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* line 64, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item h4::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 0;
+  display: block;
+  width: calc(100% - 60px);
+  height: 1px;
+  background-color: #F0D84C;
+}
+
+/* line 75, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item p {
+  margin: 0;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 15px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* line 82, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item p:last-of-type {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* line 83, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item p:last-of-type {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #F0D84C;
+}
+
+/* line 84, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item p span {
+  margin-left: 5px;
+  color: #F0D84C;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* line 89, src/sass/componentes/_ranking.scss */
+.user-list__save .save-list__item p span.oi {
+  margin-top: 4px;
+  font-size: 10px;
+  vertical-align: top;
 }
 
 /* ==========================================================================
@@ -1457,18 +1653,19 @@ b {
 /* line 6, src/sass/geral/_geral.scss */
 body {
   font-family: 'Roboto', cursive;
+  font-weight: 400;
   color: #666666;
   background-color: #F3F3F3;
 }
 
-/* line 12, src/sass/geral/_geral.scss */
+/* line 13, src/sass/geral/_geral.scss */
 .container {
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;
 }
 
-/* line 18, src/sass/geral/_geral.scss */
+/* line 19, src/sass/geral/_geral.scss */
 .memory-header {
   height: 60px;
   max-width: 960px;
@@ -1479,7 +1676,7 @@ body {
   justify-content: space-between;
 }
 
-/* line 26, src/sass/geral/_geral.scss */
+/* line 27, src/sass/geral/_geral.scss */
 .memory-header .timer,
 .memory-header .movements {
   margin-top: 0;
@@ -1490,7 +1687,7 @@ body {
   color: #c1c1c1;
 }
 
-/* line 34, src/sass/geral/_geral.scss */
+/* line 35, src/sass/geral/_geral.scss */
 .memory-header .timer span,
 .memory-header .movements span {
   vertical-align: middle;
@@ -1501,7 +1698,7 @@ body {
   color: #666;
 }
 
-/* line 45, src/sass/geral/_geral.scss */
+/* line 46, src/sass/geral/_geral.scss */
 .memory-body {
   position: relative;
   display: flex;
@@ -1512,26 +1709,38 @@ body {
 }
 
 @media (min-width: 1440px) {
-  /* line 45, src/sass/geral/_geral.scss */
+  /* line 46, src/sass/geral/_geral.scss */
   .memory-body {
     top: calc(50% - 90px);
     transform: translateY(-50%);
   }
 }
 
-/* line 56, src/sass/geral/_geral.scss */
+/* line 57, src/sass/geral/_geral.scss */
 .memory-body.stage1 {
   max-width: 480px;
 }
 
-/* line 57, src/sass/geral/_geral.scss */
+/* line 58, src/sass/geral/_geral.scss */
 .memory-body.stage2 {
   max-width: 720px;
 }
 
-/* line 58, src/sass/geral/_geral.scss */
+/* line 59, src/sass/geral/_geral.scss */
 .memory-body.stage3 {
   max-width: 960px;
+}
+
+/* line 60, src/sass/geral/_geral.scss */
+.memory-body.stage4 {
+  max-width: 960px;
+  zoom: 75%;
+}
+
+/* line 61, src/sass/geral/_geral.scss */
+.memory-body.stage5 {
+  max-width: 960px;
+  zoom: 50%;
 }
 
 /*# sourceMappingURL=estiloMemoryGame.css.map */
