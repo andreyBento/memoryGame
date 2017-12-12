@@ -49,14 +49,27 @@ body {
   flex-wrap: wrap;
   align-content: center;
   margin: auto;
+  max-width: 960px;
   text-align: center;
   @media (min-width: 1440px){
-    top: calc(50% - 90px);
+    top: calc(50% - 60px);
     transform: translateY(-50%);
   }
   &.stage1{ max-width: 480px; }
-  &.stage2{ max-width: 720px; }
-  &.stage3{ max-width: 960px; }
-  &.stage4{ max-width: 960px; zoom: 75%; }
-  &.stage5{ max-width: 960px; zoom: 50%; }
+  &.stage6{ zoom: 90%; }
+  &.stage7{ zoom: 80%; }
+}
+
+.input-padrao{
+  display: block;
+  width: 100%;
+  height: 36px;
+  background-color: #F4F4F4;
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  border-radius: 7px;
+  &:focus{ outline: none; }
+  &.active{ border: 1px solid #DFDFDF; }
 }

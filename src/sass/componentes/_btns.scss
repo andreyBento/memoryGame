@@ -9,5 +9,46 @@
     color: #666;
     border: none;
     border-radius: 7px;
+    cursor: pointer;
     transition: .6s;
+}
+
+.btn-sm{
+    padding: 5px 10px;
+    font-size: 14px;
+    text-transform: lowercase;
+    border-radius: 7px;
+}
+
+.btn--close{
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    background-color: #CF5D64;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 50%;
+}
+
+.btn--user{
+    background-color: #5DA4CF;
+    color: #fff;
+    &:hover,
+    &:focus{
+        background-color: darken(#5DA4CF, 15%);
+    }
+    &.active{
+        border: 1px solid #408BB8;
+    }
+}
+
+.btn--choose{
+    background-color: #A2CF5D;
+    color: #fff;
+    &:hover,
+    &:focus{
+        background-color: darken(#A2CF5D, 15%);
+    }
 }

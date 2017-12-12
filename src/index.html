@@ -21,7 +21,7 @@
                 <span id="movesHtml">0</span>
             </p>
         </header>
-        <section class="memory-body"></section>
+        <section id="body" class="memory-body"></section>
         <aside class="memory-ranking">
             <h2>Ranking</h2>
             <ol class="user-list">
@@ -41,6 +41,34 @@
                 </li>
             </ol>
         </aside>
+
+
+        <div class="overlay"></div>
+        <div class="modal">
+            <a href="#" class="modal__close">
+                <p>não desejo salvar</p>
+                <button class="btn btn--close">
+                    <span class="oi oi-x"></span>
+                </button>
+            </a>
+            <img src="img/emote-glasses.svg" alt="Emoticon com óculos escuros" />
+            <h1>Parabéns!</h1>
+            <h2>Você concluiu esta fase.</h2>
+            <div class="modal__estrelas">
+                <h3>Seu desempenho recebeu honoráveis:</h3>
+                <span class="oi oi-star active"></span>
+                <span class="oi oi-star"></span>
+                <span class="oi oi-star"></span>
+                <p><span id="qntdestrelas">1</span> estrela(s)</p>
+            </div>
+            <p>Após a conclusão de cada fase você pode salvar o seu desempenho em um ranking, é só escolher um usuário abaixo e pronto!</p>
+            <form action="" id="chooseUser">
+                <label for="">Salvar como:</label>
+                <button class="btn btn--user">user</button>
+                <input type="text" placeholder="novo usuario..." class="input-padrao" />
+                <button class="btn btn-sm btn--choose">escolher</button>
+            </form>
+        </div>
     </main>
      <script src="js/script_memoryGame.js"></script>
 </body>

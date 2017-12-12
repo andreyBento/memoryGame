@@ -1365,7 +1365,56 @@
   color: #666;
   border: none;
   border-radius: 7px;
+  cursor: pointer;
   transition: .6s;
+}
+
+/* line 16, src/sass/componentes/_btns.scss */
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 14px;
+  text-transform: lowercase;
+  border-radius: 7px;
+}
+
+/* line 23, src/sass/componentes/_btns.scss */
+.btn--close {
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  background-color: #CF5D64;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 50%;
+}
+
+/* line 35, src/sass/componentes/_btns.scss */
+.btn--user {
+  background-color: #5DA4CF;
+  color: #fff;
+}
+
+/* line 38, src/sass/componentes/_btns.scss */
+.btn--user:hover, .btn--user:focus {
+  background-color: #337fac;
+}
+
+/* line 42, src/sass/componentes/_btns.scss */
+.btn--user.active {
+  border: 1px solid #408BB8;
+}
+
+/* line 47, src/sass/componentes/_btns.scss */
+.btn--choose {
+  background-color: #A2CF5D;
+  color: #fff;
+}
+
+/* line 50, src/sass/componentes/_btns.scss */
+.btn--choose:hover, .btn--choose:focus {
+  background-color: #7dac33;
 }
 
 /* ==========================================================================
@@ -1591,6 +1640,138 @@
 }
 
 /* ==========================================================================
+   Modal
+   ========================================================================== */
+/* line 5, src/sass/componentes/_modal.scss */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 15, src/sass/componentes/_modal.scss */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  padding: 40px;
+  max-width: 280px;
+  background-color: #fff;
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, -50%);
+}
+
+/* line 29, src/sass/componentes/_modal.scss */
+.modal__close {
+  position: absolute;
+  top: -22px;
+  right: 0;
+  text-decoration: none;
+}
+
+/* line 34, src/sass/componentes/_modal.scss */
+.modal__close p {
+  padding: 4px 25px 4px 15px;
+  background-color: #fff;
+  color: #FAD2D3;
+  font-size: 10px;
+  border: 1px solid #FAD2D3;
+  border-radius: 10px;
+}
+
+/* line 42, src/sass/componentes/_modal.scss */
+.modal__close .btn--close {
+  position: absolute;
+  top: 5px;
+  right: -16px;
+  border: none;
+}
+
+/* line 49, src/sass/componentes/_modal.scss */
+.modal h1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* line 56, src/sass/componentes/_modal.scss */
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+/* line 61, src/sass/componentes/_modal.scss */
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/* line 67, src/sass/componentes/_modal.scss */
+.modal p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* line 71, src/sass/componentes/_modal.scss */
+.modal__estrelas {
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* line 75, src/sass/componentes/_modal.scss */
+.modal__estrelas .oi-star {
+  color: #666666;
+  font-size: 33px;
+}
+
+/* line 78, src/sass/componentes/_modal.scss */
+.modal__estrelas .oi-star.active {
+  color: #F1DE6B;
+}
+
+/* line 80, src/sass/componentes/_modal.scss */
+.modal__estrelas p {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* line 86, src/sass/componentes/_modal.scss */
+.modal form label {
+  display: block;
+  margin-bottom: 0;
+  color: #666;
+  font-size: 18px;
+}
+
+/* line 92, src/sass/componentes/_modal.scss */
+.modal form .btn {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* line 98, src/sass/componentes/_modal.scss */
+.modal form .btn--choose {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
    Reset
    ========================================================================== */
 /* line 5, src/sass/geral/_reset.scss */
@@ -1705,42 +1886,54 @@ body {
   flex-wrap: wrap;
   align-content: center;
   margin: auto;
+  max-width: 960px;
   text-align: center;
 }
 
 @media (min-width: 1440px) {
   /* line 46, src/sass/geral/_geral.scss */
   .memory-body {
-    top: calc(50% - 90px);
+    top: calc(50% - 60px);
     transform: translateY(-50%);
   }
 }
 
-/* line 57, src/sass/geral/_geral.scss */
+/* line 58, src/sass/geral/_geral.scss */
 .memory-body.stage1 {
   max-width: 480px;
 }
 
-/* line 58, src/sass/geral/_geral.scss */
-.memory-body.stage2 {
-  max-width: 720px;
-}
-
 /* line 59, src/sass/geral/_geral.scss */
-.memory-body.stage3 {
-  max-width: 960px;
+.memory-body.stage6 {
+  zoom: 90%;
 }
 
 /* line 60, src/sass/geral/_geral.scss */
-.memory-body.stage4 {
-  max-width: 960px;
-  zoom: 75%;
+.memory-body.stage7 {
+  zoom: 80%;
 }
 
-/* line 61, src/sass/geral/_geral.scss */
-.memory-body.stage5 {
-  max-width: 960px;
-  zoom: 50%;
+/* line 63, src/sass/geral/_geral.scss */
+.input-padrao {
+  display: block;
+  width: 100%;
+  height: 36px;
+  background-color: #F4F4F4;
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  border-radius: 7px;
+}
+
+/* line 73, src/sass/geral/_geral.scss */
+.input-padrao:focus {
+  outline: none;
+}
+
+/* line 74, src/sass/geral/_geral.scss */
+.input-padrao.active {
+  border: 1px solid #DFDFDF;
 }
 
 /*# sourceMappingURL=estiloMemoryGame.css.map */

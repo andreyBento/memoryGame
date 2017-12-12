@@ -17,16 +17,16 @@ const Card = function(name, key){
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
-const Ranking = function(stageParam){
-    this.time = window.localStorage.time;
-    this.moves = window.localStorage.moves;
+const Ranking = function(time, moves, stars){
+    this.time = time;
+    this.moves = moves;
+    this.stars = stars;
     this.born();
 }
 
 Ranking.prototype.born = function(){
     const rankingHtml = document.getElementsByClassName('memory-ranking');
 }
-
 Game.prototype.begin = function(stageParam){
     this.stage(stageParam);
     this.timer();
@@ -37,9 +37,17 @@ Game.prototype.stage = function(stageParam){
     if(stageParam == 1){
         this.createCard(4);
     } else if(stageParam == 2){
-        this.createCard(12);
+        this.createCard(8);
     } else if(stageParam == 3){
+        this.createCard(12);
+    } else if(stageParam == 4){
         this.createCard(16);
+    } else if(stageParam == 5){
+        this.createCard(20);
+    } else if(stageParam == 6){
+        this.createCard(24);
+    } else if(stageParam == 7){
+        this.createCard(28);
     }
     this.born();
     body.setAttribute('class','memory-body stage'+ stageParam);
@@ -178,14 +186,103 @@ Game.prototype.born = function(){
     this.unturn(cardElementArray);
 }
 
+Game.prototype.starCount = function(){
+    let actualStage = document.getElementById('body').classList[1];
+    if(actualStage == 'stage1'){
+        if(this.movements <= 10){
+            return 3;
+        } else if(this.movements > 10 && this.movements <= 14){
+            return 2;
+        } else if(this.movements > 14 && this.movements <= 18){
+            return 1;
+        } else if(this.movements > 18){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage2'){
+        if(this.movements <= 18){
+            return 3;
+        } else if(this.movements > 18 && this.movements <= 28){
+            return 2;
+        } else if(this.movements > 28 && this.movements <= 36){
+            return 1
+        } else if(this.movements > 36){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage3'){
+        if(this.movements <= 26){
+            return 3;
+        } else if(this.movements > 26 && this.movements <= 36){
+            return 2;
+        } else if(this.movements > 36 && this.movements <= 44){
+            return 1;
+        } else if(this.movements > 44){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage4'){
+        if(this.movements <= 34){
+            return 3;
+        } else if(this.movements > 34 && this.movements <= 44){
+            return 2;
+        } else if(this.movements > 44 && this.movements <= 52){
+            return 1;
+        } else if(this.movements > 52){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage5'){
+        if(this.movements <= 42){
+            return 3;
+        } else if(this.movements > 42 && this.movements <= 52){
+            return 2;
+        } else if(this.movements > 52 && this.movements <= 60){
+            return 1;
+        } else if(this.movements > 60){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage6'){
+        if(this.movements <= 50){
+            return 3;
+        } else if(this.movements > 50 && this.movements <= 60){
+            return 2;
+        } else if(this.movements > 60 && this.movements <= 68){
+            return 1;
+        } else if(this.movements > 68){
+            return 0;
+        }
+    }
+    if(actualStage == 'stage7'){
+        if(this.movements <= 58){
+            return 3;
+        } else if(this.movements > 58 && this.movements <= 68){
+            return 2;
+        } else if(this.movements > 68 && this.movements <= 76){
+            return 1;
+        } else if(this.movements > 76){
+            return 0;
+        }
+    }
+}
+
+Game.prototype.modal = function(){
+    this.modalTemplate = undefined;
+}
+
 Game.prototype.checkFinish = function(){
     const cardSuccessArray = document.querySelectorAll('.success');
     if(cardSuccessArray.length == cardsArray.length){
         this.stop();
-        this.ranking = new Ranking();
+
+        this.modal();
+
+
         window.localStorage.time = document.getElementById('timerHtml').innerHTML;
         window.localStorage.moves = document.getElementById('movesHtml').innerHTML;
-        alert('Você Ganhou!');
+        window.localStorage.stars = this.starCount();
+        this.ranking = new Ranking(window.localStorage.time, window.localStorage.moves, window.localStorage.stars, window.localStorage.user);
     }
 }
 
@@ -194,6 +291,11 @@ Game.prototype.cardClick = function(item){
     this.turnCard(item);
     this.checkFinish();
 }
+
+
+
+
+
 
 const game = new Game(1);
 
