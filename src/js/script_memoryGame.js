@@ -268,7 +268,13 @@ Game.prototype.starCount = function(){
 }
 
 Game.prototype.modal = function(){
-    this.modalTemplate = undefined;
+    const modalHtml = document.getElementById('modal'),
+          starHtml = document.getElementsByClassName('oi-star');
+          starCountHtml = document.getElementById('qntdestrelas');
+    modalHtml.classList.add('active')
+    if(this.starCount() == 1){
+        starHtml[1].classList.add('active');
+    }
 }
 
 Game.prototype.checkFinish = function(){

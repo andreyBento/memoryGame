@@ -1644,6 +1644,7 @@
    ========================================================================== */
 /* line 5, src/sass/componentes/_modal.scss */
 .overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -1653,8 +1654,9 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* line 15, src/sass/componentes/_modal.scss */
+/* line 16, src/sass/componentes/_modal.scss */
 .modal {
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1670,7 +1672,12 @@
   transform: translate(-50%, -50%);
 }
 
-/* line 29, src/sass/componentes/_modal.scss */
+/* line 31, src/sass/componentes/_modal.scss */
+.modal.active {
+  display: block;
+}
+
+/* line 34, src/sass/componentes/_modal.scss */
 .modal__close {
   position: absolute;
   top: -22px;
@@ -1678,7 +1685,7 @@
   text-decoration: none;
 }
 
-/* line 34, src/sass/componentes/_modal.scss */
+/* line 39, src/sass/componentes/_modal.scss */
 .modal__close p {
   padding: 4px 25px 4px 15px;
   background-color: #fff;
@@ -1688,7 +1695,7 @@
   border-radius: 10px;
 }
 
-/* line 42, src/sass/componentes/_modal.scss */
+/* line 47, src/sass/componentes/_modal.scss */
 .modal__close .btn--close {
   position: absolute;
   top: 5px;
@@ -1696,7 +1703,7 @@
   border: none;
 }
 
-/* line 49, src/sass/componentes/_modal.scss */
+/* line 54, src/sass/componentes/_modal.scss */
 .modal h1 {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -1705,14 +1712,14 @@
   font-weight: 700;
 }
 
-/* line 56, src/sass/componentes/_modal.scss */
+/* line 61, src/sass/componentes/_modal.scss */
 .modal h2 {
   margin-top: 0;
   margin-bottom: 10px;
   font-weight: 400;
 }
 
-/* line 61, src/sass/componentes/_modal.scss */
+/* line 66, src/sass/componentes/_modal.scss */
 .modal h3 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -1720,37 +1727,37 @@
   font-weight: 300;
 }
 
-/* line 67, src/sass/componentes/_modal.scss */
+/* line 72, src/sass/componentes/_modal.scss */
 .modal p {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 71, src/sass/componentes/_modal.scss */
+/* line 76, src/sass/componentes/_modal.scss */
 .modal__estrelas {
   font-size: 16px;
   font-weight: 300;
   font-style: italic;
 }
 
-/* line 75, src/sass/componentes/_modal.scss */
+/* line 80, src/sass/componentes/_modal.scss */
 .modal__estrelas .oi-star {
   color: #666666;
   font-size: 33px;
 }
 
-/* line 78, src/sass/componentes/_modal.scss */
+/* line 83, src/sass/componentes/_modal.scss */
 .modal__estrelas .oi-star.active {
   color: #F1DE6B;
 }
 
-/* line 80, src/sass/componentes/_modal.scss */
+/* line 85, src/sass/componentes/_modal.scss */
 .modal__estrelas p {
   margin-top: 10px;
   margin-bottom: 0;
 }
 
-/* line 86, src/sass/componentes/_modal.scss */
+/* line 91, src/sass/componentes/_modal.scss */
 .modal form label {
   display: block;
   margin-bottom: 0;
@@ -1758,7 +1765,7 @@
   font-size: 18px;
 }
 
-/* line 92, src/sass/componentes/_modal.scss */
+/* line 97, src/sass/componentes/_modal.scss */
 .modal form .btn {
   display: block;
   margin-top: 10px;
@@ -1766,7 +1773,7 @@
   width: 100%;
 }
 
-/* line 98, src/sass/componentes/_modal.scss */
+/* line 103, src/sass/componentes/_modal.scss */
 .modal form .btn--choose {
   margin-bottom: 0;
 }
