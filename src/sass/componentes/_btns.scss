@@ -3,10 +3,10 @@
    ========================================================================== */
 
 .btn{
-    padding: 10px 20px;
-    background-color: #f5f5f5;
+    padding: 8px 20px;
+    background-color: #E7E7E7;
     font-size: 16px;
-    color: #666;
+    color: #999;
     border: none;
     border-radius: 7px;
     cursor: pointer;
@@ -35,16 +35,18 @@
 .btn--user{
     background-color: #5DA4CF;
     color: #fff;
+    border: 3px solid transparent;
     &:hover,
     &:focus{
-        background-color: darken(#5DA4CF, 15%);
+        background-color: darken(#5DA4CF, 10%);
+        outline: none;
     }
     &.active{
-        border: 1px solid #408BB8;
+        border: 3px solid darken(#5DA4CF, 20%);
     }
 }
 
-.btn--choose{
+.btn--success{
     background-color: #A2CF5D;
     color: #fff;
     &:hover,

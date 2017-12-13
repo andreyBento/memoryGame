@@ -1359,10 +1359,10 @@
    ========================================================================== */
 /* line 5, src/sass/componentes/_btns.scss */
 .btn {
-  padding: 10px 20px;
-  background-color: #f5f5f5;
+  padding: 8px 20px;
+  background-color: #E7E7E7;
   font-size: 16px;
-  color: #666;
+  color: #999;
   border: none;
   border-radius: 7px;
   cursor: pointer;
@@ -1394,26 +1394,28 @@
 .btn--user {
   background-color: #5DA4CF;
   color: #fff;
+  border: 3px solid transparent;
 }
 
-/* line 38, src/sass/componentes/_btns.scss */
+/* line 39, src/sass/componentes/_btns.scss */
 .btn--user:hover, .btn--user:focus {
-  background-color: #337fac;
+  background-color: #398dc0;
+  outline: none;
 }
 
-/* line 42, src/sass/componentes/_btns.scss */
+/* line 44, src/sass/componentes/_btns.scss */
 .btn--user.active {
-  border: 1px solid #408BB8;
+  border: 3px solid #2d7099;
 }
 
-/* line 47, src/sass/componentes/_btns.scss */
-.btn--choose {
+/* line 49, src/sass/componentes/_btns.scss */
+.btn--success {
   background-color: #A2CF5D;
   color: #fff;
 }
 
-/* line 50, src/sass/componentes/_btns.scss */
-.btn--choose:hover, .btn--choose:focus {
+/* line 52, src/sass/componentes/_btns.scss */
+.btn--success:hover, .btn--success:focus {
   background-color: #7dac33;
 }
 
@@ -1652,32 +1654,41 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: .6s;
 }
 
 /* line 16, src/sass/componentes/_modal.scss */
+.overlay.active {
+  display: block;
+}
+
+/* line 21, src/sass/componentes/_modal.scss */
 .modal {
   display: none;
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 55%;
   z-index: 2;
   padding: 40px;
-  max-width: 280px;
+  max-width: 320px;
   background-color: #fff;
   color: #999;
   font-size: 14px;
   text-align: center;
   border-radius: 10px;
+  opacity: 0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
   transform: translate(-50%, -50%);
+  transition: .6s;
 }
 
-/* line 31, src/sass/componentes/_modal.scss */
+/* line 38, src/sass/componentes/_modal.scss */
 .modal.active {
   display: block;
 }
 
-/* line 34, src/sass/componentes/_modal.scss */
+/* line 41, src/sass/componentes/_modal.scss */
 .modal__close {
   position: absolute;
   top: -22px;
@@ -1685,7 +1696,7 @@
   text-decoration: none;
 }
 
-/* line 39, src/sass/componentes/_modal.scss */
+/* line 46, src/sass/componentes/_modal.scss */
 .modal__close p {
   padding: 4px 25px 4px 15px;
   background-color: #fff;
@@ -1695,7 +1706,7 @@
   border-radius: 10px;
 }
 
-/* line 47, src/sass/componentes/_modal.scss */
+/* line 54, src/sass/componentes/_modal.scss */
 .modal__close .btn--close {
   position: absolute;
   top: 5px;
@@ -1703,7 +1714,7 @@
   border: none;
 }
 
-/* line 54, src/sass/componentes/_modal.scss */
+/* line 61, src/sass/componentes/_modal.scss */
 .modal h1 {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -1712,14 +1723,14 @@
   font-weight: 700;
 }
 
-/* line 61, src/sass/componentes/_modal.scss */
+/* line 68, src/sass/componentes/_modal.scss */
 .modal h2 {
   margin-top: 0;
   margin-bottom: 10px;
   font-weight: 400;
 }
 
-/* line 66, src/sass/componentes/_modal.scss */
+/* line 73, src/sass/componentes/_modal.scss */
 .modal h3 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -1727,45 +1738,45 @@
   font-weight: 300;
 }
 
-/* line 72, src/sass/componentes/_modal.scss */
+/* line 79, src/sass/componentes/_modal.scss */
 .modal p {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 76, src/sass/componentes/_modal.scss */
+/* line 83, src/sass/componentes/_modal.scss */
 .modal__estrelas {
   font-size: 16px;
   font-weight: 300;
   font-style: italic;
 }
 
-/* line 80, src/sass/componentes/_modal.scss */
+/* line 87, src/sass/componentes/_modal.scss */
 .modal__estrelas .oi-star {
   color: #666666;
   font-size: 33px;
 }
 
-/* line 83, src/sass/componentes/_modal.scss */
+/* line 90, src/sass/componentes/_modal.scss */
 .modal__estrelas .oi-star.active {
   color: #F1DE6B;
 }
 
-/* line 85, src/sass/componentes/_modal.scss */
+/* line 92, src/sass/componentes/_modal.scss */
 .modal__estrelas p {
   margin-top: 10px;
   margin-bottom: 0;
 }
 
-/* line 91, src/sass/componentes/_modal.scss */
+/* line 98, src/sass/componentes/_modal.scss */
 .modal form label {
   display: block;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   color: #666;
   font-size: 18px;
 }
 
-/* line 97, src/sass/componentes/_modal.scss */
+/* line 104, src/sass/componentes/_modal.scss */
 .modal form .btn {
   display: block;
   margin-top: 10px;
@@ -1773,7 +1784,12 @@
   width: 100%;
 }
 
-/* line 103, src/sass/componentes/_modal.scss */
+/* line 109, src/sass/componentes/_modal.scss */
+.modal form .btn:first-of-type {
+  margin-top: 0;
+}
+
+/* line 111, src/sass/componentes/_modal.scss */
 .modal form .btn--choose {
   margin-bottom: 0;
 }
@@ -1833,6 +1849,13 @@ textarea {
 /* line 38, src/sass/geral/_reset.scss */
 b {
   font-family: 'robotobold';
+}
+
+/* line 40, src/sass/geral/_reset.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
@@ -1924,23 +1947,24 @@ body {
 .input-padrao {
   display: block;
   width: 100%;
-  height: 36px;
+  height: 40px;
   background-color: #F4F4F4;
   color: #666;
   font-size: 16px;
   text-align: center;
   border: none;
   border-radius: 7px;
+  transition: 0.6s;
 }
 
-/* line 73, src/sass/geral/_geral.scss */
+/* line 74, src/sass/geral/_geral.scss */
 .input-padrao:focus {
   outline: none;
 }
 
-/* line 74, src/sass/geral/_geral.scss */
+/* line 75, src/sass/geral/_geral.scss */
 .input-padrao.active {
-  border: 1px solid #DFDFDF;
+  border: 3px solid #DFDFDF;
 }
 
 /*# sourceMappingURL=estiloMemoryGame.css.map */

@@ -17,16 +17,281 @@ const Card = function(name, key){
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
-const Ranking = function(time, moves, stars){
-    this.time = time;
-    this.moves = moves;
-    this.stars = stars;
+const Ranking = function(){
+    this.user = window.localStorage.user;
+    this.time = window.localStorage.time;
+    this.moves = window.localStorage.moves;
+    this.stars = window.localStorage.stars;
+    this.stage = window.localStorage.stage;
     this.born();
 }
 
 Ranking.prototype.born = function(){
     const rankingHtml = document.getElementsByClassName('memory-ranking');
 }
+
+const Modal = function(param){
+    this.actualModal = param;
+    this.born();
+}
+
+Modal.prototype.starCount = function(star1, star2, star3){
+
+    if(window.localStorage.stars == 1){
+        star1.setAttribute('class', 'oi oi-star active');
+    } else if(window.localStorage.stars == 2){
+        star1.setAttribute('class', 'oi oi-star active');
+        star2.setAttribute('class', 'oi oi-star active');
+    } else if(window.localStorage.stars == 3){
+        star1.setAttribute('class', 'oi oi-star active');
+        star2.setAttribute('class', 'oi oi-star active');
+        star3.setAttribute('class', 'oi oi-star active');
+    }
+}
+
+Modal.prototype.modalCloseTemplate = function(){
+    const modalClose = document.createElement('A'),
+          modalCloseInfo = document.createElement('P'),
+          modalBtnClose = document.createElement('BUTTON'),
+          modalBtnCloseSpan = document.createElement('SPAN');
+
+    modalClose.setAttribute('class', 'modal__close');
+    modalCloseInfo.setAttribute('id', 'modalCloseInfo');
+    modalBtnClose.setAttribute('class', 'btn btn--close');
+    modalBtnCloseSpan.setAttribute('class', 'oi oi-x');
+
+    modalClose.appendChild(modalCloseInfo);
+    modalBtnClose.appendChild(modalBtnCloseSpan);
+    modalClose.appendChild(modalBtnClose);
+    return modalClose;
+}
+
+Modal.prototype.modalStarsTemplate = function(){
+    const modalStars = document.createElement('DIV'),
+          modalStarsTitle = document.createElement('H3'),
+          modalStarsSpan1 = document.createElement('SPAN'),
+          modalStarsSpan2 = document.createElement('SPAN'),
+          modalStarsSpan3 = document.createElement('SPAN'),
+          modalStarsDesc = document.createElement('P');
+
+    modalStars.setAttribute('class', 'modal__estrelas');
+    modalStarsTitle.innerHTML = 'Seu desempenho recebeu honoráveis:';
+
+    modalStarsSpan1.setAttribute('class', 'oi oi-star');
+    modalStarsSpan2.setAttribute('class', 'oi oi-star');
+    modalStarsSpan3.setAttribute('class', 'oi oi-star');
+
+    modalStarsDesc.innerHTML = window.localStorage.stars + ' estrela(s)';
+
+    modalStars.appendChild(modalStarsTitle);
+    modalStars.appendChild(modalStarsSpan1);
+    modalStars.appendChild(modalStarsSpan2);
+    modalStars.appendChild(modalStarsSpan3);
+    modalStars.appendChild(modalStarsDesc);
+
+    this.starCount(modalStarsSpan1, modalStarsSpan2, modalStarsSpan3);
+
+    return modalStars;
+}
+
+Modal.prototype.modalFormTemplate = function(){
+    const modalForm = document.createElement('FORM'),
+          modalFormLabel = document.createElement('LABEL'),
+          modalFormBtnLastuser = document.createElement('BUTTON'),
+          modalFormInput = document.createElement('INPUT'),
+          modalFormBtnChoose = document.createElement('BUTTON');
+
+    modalFormLabel.innerHTML = 'Salvar como:';
+    modalFormBtnLastuser.setAttribute('id', 'lastUser');
+    modalFormBtnLastuser.setAttribute('class', 'btn btn--user');
+    modalFormInput.setAttribute('id', 'newUser');
+    modalFormInput.setAttribute('type', 'text');
+    modalFormInput.setAttribute('placeholder', 'novo usuario...');
+    modalFormInput.setAttribute('class', 'input-padrao');
+    modalFormBtnChoose.setAttribute('class', 'btn btn-sm btn--success');
+    modalFormBtnChoose.setAttribute('id', 'btnChoose');
+    modalFormBtnChoose.innerHTML = 'escolher';
+
+    modalForm.appendChild(modalFormLabel);
+    modalForm.appendChild(modalFormBtnLastuser);
+    modalForm.appendChild(modalFormInput);
+    modalForm.appendChild(modalFormBtnChoose);
+
+    return modalForm;
+}
+
+Modal.prototype.modalButtonNextTemplate = function(){
+    const modalButtonNext = document.createElement('BUTTON');
+
+    modalButtonNext.setAttribute('class', 'btn btn-sm btn--success');
+    modalButtonNext.setAttribute('id', 'btnNext');
+    modalButtonNext.innerHTML = 'próxima fase';
+
+    return modalButtonNext;
+}
+
+Modal.prototype.modalButtonAgainTemplate = function(){
+    const modalBeginAgain = document.createElement('BUTTON');
+
+    modalBeginAgain.setAttribute('class', 'btn btn-sm');
+    modalBeginAgain.setAttribute('id', 'btnbeginAgain');
+    modalBeginAgain.innerHTML = 'começar denovo';
+
+    return modalBeginAgain;
+}
+
+Modal.prototype.modalTemplate = function(){
+    const modal = document.createElement('DIV'),
+          modalClose = this.modalCloseTemplate(),
+          modalEmote = document.createElement('IMG'),
+          modalTitle = document.createElement('H1'),
+          modalSubtitle = document.createElement('H2'),
+          modalDesc = document.createElement('P');
+
+    modal.setAttribute('class', 'modal');
+    modal.setAttribute('id', 'modal');
+    modalEmote.setAttribute('id', 'modalEmote');
+    modalTitle.setAttribute('id', 'modalTitle');
+    modalSubtitle.setAttribute('id', 'modalSubtitle');
+    modalDesc.setAttribute('id', 'modalDesc');
+
+    modal.appendChild(modalClose);
+    modal.appendChild(modalEmote);
+    modal.appendChild(modalTitle);
+    modal.appendChild(modalSubtitle);
+    if(this.actualModal == 'success'){
+        modal.appendChild(this.modalStarsTemplate());
+    }
+    modal.appendChild(modalDesc);
+    if(this.actualModal == 'success'){
+        modal.appendChild(this.modalFormTemplate());
+    } else if (this.actualModal == 'nextStage' || this.actualModal == 'lastStage'){
+        modal.appendChild(this.modalButtonNextTemplate());
+    } else if (this.actualModal == 'lastSuccess'){
+        modal.appendChild(this.modalButtonNextTemplate());
+        modal.appendChild(this.modalButtonAgainTemplate());
+    }
+
+    return modal;
+}
+
+Modal.prototype.modifyModal = function(){
+    if(this.actualModal == 'success'){
+        document.getElementById('modalCloseInfo').innerHTML = 'não desejo salvar';
+
+        document.getElementById('modalEmote').setAttribute('src', 'img/emote-glasses.svg');
+        document.getElementById('modalEmote').setAttribute('alt', 'Emoticon com óculos escuros');
+
+        document.getElementById('modalTitle').innerHTML = 'Parabéns!';
+
+        document.getElementById('modalSubtitle').innerHTML = 'Você concluiu esta fase.';
+
+        document.getElementById('modalDesc').innerHTML = 'Após a conclusão de cada fase você pode salvar o seu desempenho em um ranking, é só escolher um usuário abaixo e pronto!';
+
+        this.checkUser();
+
+    } else if (this.actualModal == 'nextStage'){
+        document.getElementById('modalCloseInfo').innerHTML = 'não desejo continuar';
+
+        document.getElementById('modalEmote').setAttribute('src', 'img/emote-wink.svg');
+        document.getElementById('modalEmote').setAttribute('alt', 'Emoticon piscando');
+
+        document.getElementById('modalTitle').innerHTML = 'Continua';
+
+        document.getElementById('modalSubtitle').innerHTML = 'Outra, outra, outra, outra!';
+
+        document.getElementById('modalDesc').innerHTML = 'Vamos seguir adiante. Agora a dificuldade irá aumentar, cuidado com seus movimentos, ou pode perder muitas estrelas!';
+    } else if (this.actualModal == 'lastStage'){
+        document.getElementById('modalCloseInfo').innerHTML = 'não desejo continuar';
+
+        document.getElementById('modalEmote').setAttribute('src', 'img/emote-laststage.svg');
+        document.getElementById('modalEmote').setAttribute('alt', 'Emoticon feliz');
+
+        document.getElementById('modalTitle').innerHTML = 'Última fase';
+
+        document.getElementById('modalSubtitle').innerHTML = 'Como você chegou aqui?';
+
+        document.getElementById('modalDesc').innerHTML = 'Este é seu último desafio. Será que consegue derrotar este boss?';
+    } else if (this.actualModal == 'lastSuccess'){
+        document.getElementById('modalCloseInfo').innerHTML = 'não desejo continuar';
+        
+        document.getElementById('modalEmote').setAttribute('src', 'img/emote-end.svg');
+        document.getElementById('modalEmote').setAttribute('alt', 'Emoticon Surpreso');
+
+        document.getElementById('modalTitle').innerHTML = 'Wooow!!!';
+
+        document.getElementById('modalSubtitle').innerHTML = 'Turn down for what!!!';
+
+        document.getElementById('modalDesc').innerHTML = 'Você conseguiu derrotar todos os estágios e com isso salvar o mundo! Bem, talvez nem tanto. Mas parabéns!';
+    }
+}
+
+Modal.prototype.born = function(){
+    const overlay = document.createElement('DIV'),
+          modalHtml = this.modalTemplate();
+    let mainHtml = document.getElementById('mainGame');
+
+    overlay.setAttribute('class', 'overlay');
+    overlay.setAttribute('id', 'overlay');
+
+    mainHtml.appendChild(overlay);
+    mainHtml.appendChild(modalHtml);
+
+    this.modifyModal();
+
+    document.getElementById('overlay').classList.add('active');
+    document.getElementById('modal').classList.add('active');
+    setTimeout(function(){
+        document.getElementById('modal').style.opacity = '1';
+        document.getElementById('modal').style.left = '50%';
+        document.getElementById('overlay').style.opacity = '1';
+    }, 600);
+
+    document.getElementById('lastUser').addEventListener('click', function(event){
+        event.preventDefault();
+        document.getElementById('newUser').classList.remove('active');
+        this.classList.add('active');
+    });
+    
+    document.getElementById('newUser').addEventListener('focus', function(){
+        document.getElementById('lastUser').classList.remove('active');
+        this.classList.add('active');
+    });
+    
+    document.getElementById('btnChoose').addEventListener('click', function(event){
+        event.preventDefault();
+        game.defineUser();
+    
+        game.modal.remove();
+        new Modal('nextStage');
+    });
+
+}
+
+Modal.prototype.checkUser = function(){
+    let lastUserHtml = document.getElementById('lastUser');
+
+    if(window.localStorage.user != undefined && window.localStorage.user != "" && window.localStorage.user != null && window.localStorage.user != " "){
+        lastUserHtml.style.display = 'block';
+        lastUserHtml.innerHTML = window.localStorage.user;
+    } else {
+        lastUserHtml.style.display = 'none';
+    }
+}
+
+Modal.prototype.remove = function(){
+    let existingOverlay = document.getElementById('overlay'),
+        existingModal = document.getElementById('modal');
+
+    existingModal.style.opacity = '1';
+    existingModal.style.left = '45%';
+    existingOverlay.style.opacity = '1';
+    setTimeout(function(){
+        existingOverlay.classList.remove('active');
+        existingModal.classList.remove('active');
+    }, 600);
+}
+
 Game.prototype.begin = function(stageParam){
     this.stage(stageParam);
     this.timer();
@@ -81,7 +346,7 @@ Game.prototype.timer = function(){
         return i;
     }
 
-    this.stop = function(){ 
+    this.stopTimer = function(){ 
         clearInterval(updateTime);
     }
 
@@ -267,28 +532,35 @@ Game.prototype.starCount = function(){
     }
 }
 
-Game.prototype.modal = function(){
-    const modalHtml = document.getElementById('modal'),
-          starHtml = document.getElementsByClassName('oi-star');
-          starCountHtml = document.getElementById('qntdestrelas');
-    modalHtml.classList.add('active')
-    if(this.starCount() == 1){
-        starHtml[1].classList.add('active');
+Game.prototype.defineUser = function(){
+    const newUsertHtml = document.getElementById('newUser');
+    let lastUserHtml = document.getElementById('lastUser');
+
+    for(i = 0;i < lastUserHtml.classList.length; i++){
+        if(lastUserHtml.classList[i] == 'active'){
+            let lastUser = true;
+        }
+    }
+    console.log(newUsertHtml.value);
+    if(newUsertHtml.value != undefined || newUsertHtml.value != '' || newUsertHtml.value != null){
+        window.localStorage.user = newUsertHtml.value;
+    } else if(lastUser){
+        window.localStorage.user = lastUserHtml.innerHTML;
     }
 }
 
 Game.prototype.checkFinish = function(){
     const cardSuccessArray = document.querySelectorAll('.success');
     if(cardSuccessArray.length == cardsArray.length){
-        this.stop();
 
-        this.modal();
-
+        this.stopTimer(); // Para a contagem de tempo
 
         window.localStorage.time = document.getElementById('timerHtml').innerHTML;
         window.localStorage.moves = document.getElementById('movesHtml').innerHTML;
         window.localStorage.stars = this.starCount();
-        this.ranking = new Ranking(window.localStorage.time, window.localStorage.moves, window.localStorage.stars, window.localStorage.user);
+
+        this.modal = new Modal('success');
+        new Ranking();
     }
 }
 
