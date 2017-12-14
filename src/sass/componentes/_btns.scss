@@ -54,3 +54,13 @@
         background-color: darken(#A2CF5D, 15%);
     }
 }
+
+.btn--begin{
+    background-color: #9A5DCF;
+    color: #fff;
+    &:hover,
+    &:focus{
+        background-color: darken(#9A5DCF, 10%);
+        outline: none;
+    }
+}

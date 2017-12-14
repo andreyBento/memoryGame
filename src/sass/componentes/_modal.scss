@@ -94,6 +94,7 @@
             margin-bottom: 0;
         }
     }
+    .btn{ display: block; width: 100%; }
     form{
         label{
             display: block;
@@ -101,11 +102,9 @@
             color: #666;
             font-size: 18px;
         }
-        .btn{ 
-            display: block;
+        .btn{
             margin-top: 10px;
             margin-bottom: 10px;
-            width: 100%;
             &:first-of-type{ margin-top: 0; }
         }
         .btn--choose{ margin-bottom: 0; }

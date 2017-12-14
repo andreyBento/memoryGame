@@ -1419,6 +1419,18 @@
   background-color: #7dac33;
 }
 
+/* line 58, src/sass/componentes/_btns.scss */
+.btn--begin {
+  background-color: #9A5DCF;
+  color: #fff;
+}
+
+/* line 61, src/sass/componentes/_btns.scss */
+.btn--begin:hover, .btn--begin:focus {
+  background-color: #8139c0;
+  outline: none;
+}
+
 /* ==========================================================================
    Cards
    ========================================================================== */
@@ -1768,7 +1780,13 @@
   margin-bottom: 0;
 }
 
-/* line 98, src/sass/componentes/_modal.scss */
+/* line 97, src/sass/componentes/_modal.scss */
+.modal .btn {
+  display: block;
+  width: 100%;
+}
+
+/* line 99, src/sass/componentes/_modal.scss */
 .modal form label {
   display: block;
   margin-bottom: 10px;
@@ -1776,20 +1794,18 @@
   font-size: 18px;
 }
 
-/* line 104, src/sass/componentes/_modal.scss */
+/* line 105, src/sass/componentes/_modal.scss */
 .modal form .btn {
-  display: block;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 100%;
 }
 
-/* line 109, src/sass/componentes/_modal.scss */
+/* line 108, src/sass/componentes/_modal.scss */
 .modal form .btn:first-of-type {
   margin-top: 0;
 }
 
-/* line 111, src/sass/componentes/_modal.scss */
+/* line 110, src/sass/componentes/_modal.scss */
 .modal form .btn--choose {
   margin-bottom: 0;
 }
