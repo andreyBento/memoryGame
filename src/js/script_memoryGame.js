@@ -300,8 +300,6 @@ Game.prototype.checkFinish = function(){
         } else {
             this.modal = new Modal('success');
         }
-
-        new Ranking();
     }
 }
 
@@ -646,7 +644,6 @@ Modal.prototype.btnClick = function(){
             event.preventDefault();
             if(game.defineUser()){
                 game.modal.destroy();
-    
                 if(game.stageNumber == 3){
                     setTimeout(function(){
                         game.modal = new Modal('lastStage');
@@ -655,6 +652,9 @@ Modal.prototype.btnClick = function(){
                     setTimeout(function(){
                         game.modal = new Modal('nextStage');
                     },600);
+                }
+                if(document.getElementById('rankingContainer').classList.length == 1){
+                    this.ranking = new Ranking();
                 }
             }
         });
@@ -738,7 +738,10 @@ const Ranking = function(){
 }
 
 Ranking.prototype.born = function(){
-    const rankingHtml = document.getElementsByClassName('memory-ranking');
+    let gameContainer = document.getElementById('gameContainer'); 
+    this.rankingHtml = document.getElementById('rankingContainer');
+    gameContainer.classList.add('ranking-active');
+    this.rankingHtml.classList.add('active');
 }
 
 let game;
