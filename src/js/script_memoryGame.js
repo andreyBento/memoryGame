@@ -7,6 +7,7 @@ const Game = function(stageParam){
     this.cards = [];
     this.cardsMirror = [];
     this.cardsOpen = [];
+    this.time = '00:00';
     this.movements = 0;
     this.stageNumber = stageParam;
     this.begin();
@@ -24,14 +25,8 @@ Game.prototype.stage = function(){
     } else if(this.stageNumber == 2){
         this.createCard(8);
     } else if(this.stageNumber == 3){
-        this.createCard(12);
-    } else if(this.stageNumber == 4){
         this.createCard(16);
-    } else if(this.stageNumber == 5){
-        this.createCard(20);
-    } else if(this.stageNumber == 6){
-        this.createCard(24);
-    } else if(this.stageNumber == 7){
+    } else if(this.stageNumber == 4){
         this.createCard(28);
     }
     this.born();
@@ -40,11 +35,15 @@ Game.prototype.stage = function(){
 
 Game.prototype.timer = function(){
     let timerHtml = document.getElementById('timerHtml'),
-        time = '00' + ':' + '00',
         min = '00';
         sec = '00';
 
-    timerHtml.innerHTML = time;
+    timerHtml.innerHTML = this.time;
+
+    this.stopTimer = function(){ 
+        clearInterval(updateTime);
+        timerHtml.style.color = '#666';
+    }
 
     const updateTime = setInterval(function(){
         if(sec < 59){
@@ -55,8 +54,15 @@ Game.prototype.timer = function(){
             min = addZero(min);
             sec = '00';
         }
-        time = min + ':' + sec;
-        timerHtml.innerHTML = time;
+        this.time = min + ':' + sec;
+        timerHtml.innerHTML = this.time;
+        if(min == 04){
+            timerHtml.style.color = '#CF5D64';
+        }
+        if(min == 05){
+            game.stopTimer();
+            game.modal = new Modal('retry');
+        }
     }, 1000);
 
     function addZero(i) {
@@ -64,10 +70,6 @@ Game.prototype.timer = function(){
             i = "0" + i;
         }
         return i;
-    }
-
-    this.stopTimer = function(){ 
-        clearInterval(updateTime);
     }
 
 }
@@ -187,68 +189,35 @@ Game.prototype.starCount = function(){
         }
     }
     if(actualStage == 'stage2'){
-        if(this.movements <= 18){
+        if(this.movements <= 24){
             return 3;
-        } else if(this.movements > 18 && this.movements <= 28){
+        } else if(this.movements > 24 && this.movements <= 34){
             return 2;
-        } else if(this.movements > 28 && this.movements <= 36){
+        } else if(this.movements > 34 && this.movements <= 42){
             return 1
-        } else if(this.movements > 36){
+        } else if(this.movements > 42){
             return 0;
         }
     }
     if(actualStage == 'stage3'){
-        if(this.movements <= 26){
+        if(this.movements <= 46){
             return 3;
-        } else if(this.movements > 26 && this.movements <= 36){
+        } else if(this.movements > 46 && this.movements <= 62){
             return 2;
-        } else if(this.movements > 36 && this.movements <= 44){
+        } else if(this.movements > 62 && this.movements <= 76){
             return 1;
-        } else if(this.movements > 44){
+        } else if(this.movements > 76){
             return 0;
         }
     }
     if(actualStage == 'stage4'){
-        if(this.movements <= 34){
+        if(this.movements <= 62){
             return 3;
-        } else if(this.movements > 34 && this.movements <= 44){
+        } else if(this.movements > 62 && this.movements <= 72){
             return 2;
-        } else if(this.movements > 44 && this.movements <= 52){
+        } else if(this.movements > 72 && this.movements <= 98){
             return 1;
-        } else if(this.movements > 52){
-            return 0;
-        }
-    }
-    if(actualStage == 'stage5'){
-        if(this.movements <= 42){
-            return 3;
-        } else if(this.movements > 42 && this.movements <= 52){
-            return 2;
-        } else if(this.movements > 52 && this.movements <= 60){
-            return 1;
-        } else if(this.movements > 60){
-            return 0;
-        }
-    }
-    if(actualStage == 'stage6'){
-        if(this.movements <= 50){
-            return 3;
-        } else if(this.movements > 50 && this.movements <= 60){
-            return 2;
-        } else if(this.movements > 60 && this.movements <= 68){
-            return 1;
-        } else if(this.movements > 68){
-            return 0;
-        }
-    }
-    if(actualStage == 'stage7'){
-        if(this.movements <= 58){
-            return 3;
-        } else if(this.movements > 58 && this.movements <= 68){
-            return 2;
-        } else if(this.movements > 68 && this.movements <= 76){
-            return 1;
-        } else if(this.movements > 76){
+        } else if(this.movements > 98){
             return 0;
         }
     }
@@ -266,8 +235,17 @@ Game.prototype.defineUser = function(){
     }
     if(lastUser == true){
         window.localStorage.user = lastUserHtml.innerHTML;
-    } else if(newUsertHtml.value != undefined || newUsertHtml.value != '' || newUsertHtml.value != null){
+        return true;
+    } else if(newUsertHtml.value != undefined && newUsertHtml.value != "" && newUsertHtml.value != null){
         window.localStorage.user = newUsertHtml.value;
+        return true;
+    } else {
+        newUsertHtml.classList.add('erro');
+        let erroText = document.createElement('P');
+        erroText.innerHTML = 'Por favor preencha o campo de usuário';
+        erroText.setAttribute('class', 'erro');
+        newUsertHtml.parentNode.appendChild(erroText);
+        return false;
     }
 }
 
@@ -281,7 +259,12 @@ Game.prototype.checkFinish = function(){
         window.localStorage.moves = document.getElementById('movesHtml').innerHTML;
         window.localStorage.stars = this.starCount();
 
-        this.modal = new Modal('success');
+        if(this.stageNumber == 4){
+            this.modal = new Modal('lastSuccess');
+        } else {
+            this.modal = new Modal('success');
+        }
+
         new Ranking();
     }
 }
@@ -345,6 +328,7 @@ Modal.prototype.modalCloseTemplate = function(){
           modalBtnCloseSpan = document.createElement('SPAN');
 
     modalClose.setAttribute('class', 'modal__close');
+    modalClose.setAttribute('id', 'modalClose');
     modalCloseInfo.setAttribute('id', 'modalCloseInfo');
     modalBtnClose.setAttribute('class', 'btn btn--close');
     modalBtnCloseSpan.setAttribute('class', 'oi oi-x');
@@ -419,6 +403,16 @@ Modal.prototype.modalButtonNextTemplate = function(){
     return modalButtonNext;
 }
 
+Modal.prototype.modalButtonEndTemplate = function(){
+    const modalButtonEnd = document.createElement('BUTTON');
+
+    modalButtonEnd.setAttribute('class', 'btn btn-sm btn--success');
+    modalButtonEnd.setAttribute('id', 'btnEnd');
+    modalButtonEnd.innerHTML = 'concluir jogo';
+
+    return modalButtonEnd;
+}
+
 Modal.prototype.modalButtonAgainTemplate = function(){
     const modalBeginAgain = document.createElement('BUTTON');
 
@@ -427,6 +421,16 @@ Modal.prototype.modalButtonAgainTemplate = function(){
     modalBeginAgain.innerHTML = 'começar denovo';
 
     return modalBeginAgain;
+}
+
+Modal.prototype.modalButtonRetryTemplate = function(){
+    const modalBeginRetry = document.createElement('BUTTON');
+
+    modalBeginRetry.setAttribute('class', 'btn btn-sm btn--begin');
+    modalBeginRetry.setAttribute('id', 'btnRetry');
+    modalBeginRetry.innerHTML = 'tentar denovo';
+
+    return modalBeginRetry;
 }
 
 Modal.prototype.modalButtonBeginTemplate = function(){
@@ -454,7 +458,9 @@ Modal.prototype.modalTemplate = function(){
     modalSubtitle.setAttribute('id', 'modalSubtitle');
     modalDesc.setAttribute('id', 'modalDesc');
 
-    
+    if(this.actualModal != 'begin' && this.actualModal != 'lastSuccess'){
+        modal.appendChild(modalClose);
+    }
     modal.appendChild(modalEmote);
     modal.appendChild(modalTitle);
     modal.appendChild(modalSubtitle);
@@ -463,17 +469,16 @@ Modal.prototype.modalTemplate = function(){
     }
     modal.appendChild(modalDesc);
     if(this.actualModal == 'success'){
-        modal.appendChild(modalClose);
         modal.appendChild(this.modalFormTemplate());
     } else if (this.actualModal == 'nextStage' || this.actualModal == 'lastStage'){
-        modal.appendChild(modalClose);
         modal.appendChild(this.modalButtonNextTemplate());
     } else if (this.actualModal == 'lastSuccess'){
-        modal.appendChild(modalClose);
-        modal.appendChild(this.modalButtonNextTemplate());
+        modal.appendChild(this.modalButtonEndTemplate());
         modal.appendChild(this.modalButtonAgainTemplate());
     } else if (this.actualModal == 'begin'){
         modal.appendChild(this.modalButtonBeginTemplate());
+    } else if(this.actualModal == 'retry'){
+        modal.appendChild(this.modalButtonRetryTemplate());
     }
 
     return modal;
@@ -535,7 +540,18 @@ Modal.prototype.modifyModal = function(){
 
         document.getElementById('modalSubtitle').innerHTML = 'Este é o memor.it';
 
-        document.getElementById('modalDesc').innerHTML = 'Meu primeiro jogo, um simples jogo da memória com 7 fases. Será que você consegue me derrotar?';
+        document.getElementById('modalDesc').innerHTML = 'Meu primeiro jogo, um simples jogo da memória com 4 fases. Será que você consegue me derrotar?';
+    } else if (this.actualModal == 'retry'){
+        document.getElementById('modalCloseInfo').innerHTML = 'não desejo continuar';
+
+        document.getElementById('modalEmote').setAttribute('src', 'img/emote-retry.svg');
+        document.getElementById('modalEmote').setAttribute('alt', 'Emoticon Triste');
+
+        document.getElementById('modalTitle').innerHTML = 'Ops';
+
+        document.getElementById('modalSubtitle').innerHTML = 'Acabou o tempo!';
+
+        document.getElementById('modalDesc').innerHTML = 'Aparentemente você demorou muito para concluir a fase. Vai ter que tentar denovo.';
     }
 }
 
@@ -592,7 +608,22 @@ Modal.prototype.btnClick = function(){
         });
         document.getElementById('btnChoose').addEventListener('click', function(event){
             event.preventDefault();
-            game.defineUser();
+            if(game.defineUser()){
+                game.modal.destroy();
+    
+                if(game.stageNumber == 3){
+                    setTimeout(function(){
+                        game.modal = new Modal('lastStage');
+                    },600);
+                } else {
+                    setTimeout(function(){
+                        game.modal = new Modal('nextStage');
+                    },600);
+                }
+            }
+        });
+        document.getElementById('modalClose').addEventListener('click', function(event){
+            event.preventDefault();
             game.modal.destroy();
             setTimeout(function(){
                 game.modal = new Modal('nextStage');
@@ -610,6 +641,10 @@ Modal.prototype.btnClick = function(){
             game = new Game(newStage);
 
         });
+        document.getElementById('modalClose').addEventListener('click', function(event){
+            event.preventDefault();
+            game.modal.destroy();
+        });
     } else if (this.actualModal == 'begin'){
         document.getElementById('btnbegin').addEventListener('click', function(){
             beginModal.destroy();
@@ -617,6 +652,30 @@ Modal.prototype.btnClick = function(){
                 game = new Game(1);
             }, 600);
         })
+    } else if(this.actualModal == 'lastSuccess'){
+        document.getElementById('btnbeginAgain').addEventListener('click', function(){
+            game.reset();
+            beginModal.destroy();
+            setTimeout(() => {
+                game = new Game(1);
+            }, 600);
+        });
+        document.getElementById('btnEnd').addEventListener('click', function(){
+            beginModal.destroy();
+        });
+    } else if(this.actualModal == 'retry'){
+        document.getElementById('btnRetry').addEventListener('click', function(){
+            let stageRepeat = game.stageNumber;
+            game.reset();
+            beginModal.destroy();
+            setTimeout(() => {
+                game = new Game(stageRepeat);
+            }, 600);
+        });
+        document.getElementById('modalClose').addEventListener('click', function(event){
+            event.preventDefault();
+            game.modal.destroy();
+        });
     }
 
 }

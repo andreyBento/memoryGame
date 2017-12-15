@@ -1437,6 +1437,13 @@
   outline: none;
 }
 
+/* line 74, src/sass/componentes/_btns.scss */
+#btnbeginAgain {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
 /* ==========================================================================
    Cards
    ========================================================================== */
@@ -1524,18 +1531,15 @@
    ========================================================================== */
 /* line 5, src/sass/componentes/_ranking.scss */
 .memory-ranking {
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
   padding: 20px;
-  width: 100%;
-  height: calc(100% - 40px);
-  max-width: 290px;
+  height: 100%;
+  width: 290px;
   background-color: #fff;
   overflow: hidden;
 }
 
-/* line 16, src/sass/componentes/_ranking.scss */
+/* line 13, src/sass/componentes/_ranking.scss */
 .memory-ranking h2 {
   margin-top: 0;
   margin-bottom: 0;
@@ -1545,18 +1549,18 @@
   color: #666;
 }
 
-/* line 24, src/sass/componentes/_ranking.scss */
+/* line 21, src/sass/componentes/_ranking.scss */
 .memory-ranking ol {
   list-style: none;
   padding-left: 0;
 }
 
-/* line 29, src/sass/componentes/_ranking.scss */
+/* line 26, src/sass/componentes/_ranking.scss */
 .user-list__save {
   color: #939393;
 }
 
-/* line 31, src/sass/componentes/_ranking.scss */
+/* line 28, src/sass/componentes/_ranking.scss */
 .user-list__save .btn-dropdown {
   width: 100%;
   padding-left: 10px;
@@ -1567,26 +1571,26 @@
   border-radius: 0;
 }
 
-/* line 39, src/sass/componentes/_ranking.scss */
+/* line 36, src/sass/componentes/_ranking.scss */
 .user-list__save .btn-dropdown span.oi {
   margin-top: 2px;
   float: right;
   font-size: 12px;
 }
 
-/* line 44, src/sass/componentes/_ranking.scss */
+/* line 41, src/sass/componentes/_ranking.scss */
 .user-list__save .btn-dropdown.active {
   background-color: #F7F7F7;
   border-color: #F0D84C;
 }
 
-/* line 47, src/sass/componentes/_ranking.scss */
+/* line 44, src/sass/componentes/_ranking.scss */
 .user-list__save .btn-dropdown.active + ol {
   background-color: #f7f7f7;
   display: block;
 }
 
-/* line 50, src/sass/componentes/_ranking.scss */
+/* line 47, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list {
   display: none;
   height: 100%;
@@ -1594,13 +1598,13 @@
   transition: .6s;
 }
 
-/* line 55, src/sass/componentes/_ranking.scss */
+/* line 52, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item {
   padding: 15px;
   font-size: 14px;
 }
 
-/* line 58, src/sass/componentes/_ranking.scss */
+/* line 55, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item h4 {
   position: relative;
   margin-top: 0;
@@ -1609,7 +1613,7 @@
   font-weight: 400;
 }
 
-/* line 64, src/sass/componentes/_ranking.scss */
+/* line 61, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item h4::after {
   content: '';
   position: absolute;
@@ -1621,7 +1625,7 @@
   background-color: #F0D84C;
 }
 
-/* line 75, src/sass/componentes/_ranking.scss */
+/* line 72, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item p {
   margin: 0;
   padding-bottom: 5px;
@@ -1631,20 +1635,20 @@
   font-style: italic;
 }
 
-/* line 82, src/sass/componentes/_ranking.scss */
+/* line 79, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item p:last-of-type {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-/* line 83, src/sass/componentes/_ranking.scss */
+/* line 80, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item p:last-of-type {
   padding-top: 5px;
   padding-bottom: 10px;
   border-bottom: 1px solid #F0D84C;
 }
 
-/* line 84, src/sass/componentes/_ranking.scss */
+/* line 81, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item p span {
   margin-left: 5px;
   color: #F0D84C;
@@ -1652,7 +1656,7 @@
   font-weight: 700;
 }
 
-/* line 89, src/sass/componentes/_ranking.scss */
+/* line 86, src/sass/componentes/_ranking.scss */
 .user-list__save .save-list__item p span.oi {
   margin-top: 4px;
   font-size: 10px;
@@ -1887,12 +1891,18 @@ body {
 
 /* line 13, src/sass/geral/_geral.scss */
 .container {
-  width: 90%;
-  max-width: 1170px;
+  float: left;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
 }
 
-/* line 19, src/sass/geral/_geral.scss */
+/* line 18, src/sass/geral/_geral.scss */
+.container.ranking-active {
+  width: calc(100% - 290px);
+}
+
+/* line 21, src/sass/geral/_geral.scss */
 .memory-header {
   height: 60px;
   max-width: 960px;
@@ -1903,7 +1913,7 @@ body {
   justify-content: space-between;
 }
 
-/* line 27, src/sass/geral/_geral.scss */
+/* line 29, src/sass/geral/_geral.scss */
 .memory-header .timer,
 .memory-header .movements {
   margin-top: 0;
@@ -1912,9 +1922,10 @@ body {
   font-weight: 500;
   text-transform: uppercase;
   color: #c1c1c1;
+  transition: .6s;
 }
 
-/* line 35, src/sass/geral/_geral.scss */
+/* line 38, src/sass/geral/_geral.scss */
 .memory-header .timer span,
 .memory-header .movements span {
   vertical-align: middle;
@@ -1925,7 +1936,7 @@ body {
   color: #666;
 }
 
-/* line 46, src/sass/geral/_geral.scss */
+/* line 49, src/sass/geral/_geral.scss */
 .memory-body {
   position: relative;
   display: flex;
@@ -1937,29 +1948,24 @@ body {
 }
 
 @media (min-width: 1440px) {
-  /* line 46, src/sass/geral/_geral.scss */
+  /* line 49, src/sass/geral/_geral.scss */
   .memory-body {
     top: calc(50% - 60px);
     transform: translateY(-50%);
   }
 }
 
-/* line 58, src/sass/geral/_geral.scss */
+/* line 61, src/sass/geral/_geral.scss */
 .memory-body.stage1 {
   max-width: 480px;
 }
 
-/* line 59, src/sass/geral/_geral.scss */
-.memory-body.stage6 {
-  zoom: 90%;
-}
-
-/* line 60, src/sass/geral/_geral.scss */
-.memory-body.stage7 {
+/* line 62, src/sass/geral/_geral.scss */
+.memory-body.stage4 {
   zoom: 80%;
 }
 
-/* line 63, src/sass/geral/_geral.scss */
+/* line 65, src/sass/geral/_geral.scss */
 .input-padrao {
   display: block;
   width: 100%;
@@ -1973,14 +1979,31 @@ body {
   transition: 0.6s;
 }
 
-/* line 74, src/sass/geral/_geral.scss */
+/* line 76, src/sass/geral/_geral.scss */
 .input-padrao:focus {
   outline: none;
 }
 
-/* line 75, src/sass/geral/_geral.scss */
+/* line 77, src/sass/geral/_geral.scss */
 .input-padrao.active {
   border: 3px solid #DFDFDF;
+}
+
+/* line 78, src/sass/geral/_geral.scss */
+.input-padrao.erro {
+  border: 3px solid #CF5D64;
+}
+
+/* line 80, src/sass/geral/_geral.scss */
+.input-padrao.erro::placeholder {
+  color: #CF5D64;
+}
+
+/* line 86, src/sass/geral/_geral.scss */
+p.erro {
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: #CF5D64;
 }
 
 /*# sourceMappingURL=estiloMemoryGame.css.map */

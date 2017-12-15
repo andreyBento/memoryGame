@@ -3,13 +3,10 @@
    ========================================================================== */
 
 .memory-ranking{
-    position: absolute;
-    top: 0;
-    right: 0;
+    float: right;
     padding: 20px;
-    width: 100%;
-    height: calc(100% - 40px);
-    max-width: 290px;
+    height: 100%;
+    width: 290px;
     background-color: #fff;
     overflow: hidden;
 
