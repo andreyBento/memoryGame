@@ -33,6 +33,8 @@
 }
 
 .btn--user{
+    display: block;
+    width: 100%;
     background-color: #5DA4CF;
     color: #fff;
     border: 3px solid transparent;
@@ -47,6 +49,8 @@
 }
 
 .btn--success{
+    display: block;
+    width: 100%;
     background-color: #A2CF5D;
     color: #fff;
     &:hover,
@@ -56,6 +60,8 @@
 }
 
 .btn--begin{
+    display: block;
+    width: 100%;
     background-color: #9A5DCF;
     color: #fff;
     &:hover,

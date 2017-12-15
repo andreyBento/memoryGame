@@ -1392,40 +1392,46 @@
 
 /* line 35, src/sass/componentes/_btns.scss */
 .btn--user {
+  display: block;
+  width: 100%;
   background-color: #5DA4CF;
   color: #fff;
   border: 3px solid transparent;
 }
 
-/* line 39, src/sass/componentes/_btns.scss */
+/* line 41, src/sass/componentes/_btns.scss */
 .btn--user:hover, .btn--user:focus {
   background-color: #398dc0;
   outline: none;
 }
 
-/* line 44, src/sass/componentes/_btns.scss */
+/* line 46, src/sass/componentes/_btns.scss */
 .btn--user.active {
   border: 3px solid #2d7099;
 }
 
-/* line 49, src/sass/componentes/_btns.scss */
+/* line 51, src/sass/componentes/_btns.scss */
 .btn--success {
+  display: block;
+  width: 100%;
   background-color: #A2CF5D;
   color: #fff;
 }
 
-/* line 52, src/sass/componentes/_btns.scss */
+/* line 56, src/sass/componentes/_btns.scss */
 .btn--success:hover, .btn--success:focus {
   background-color: #7dac33;
 }
 
-/* line 58, src/sass/componentes/_btns.scss */
+/* line 62, src/sass/componentes/_btns.scss */
 .btn--begin {
+  display: block;
+  width: 100%;
   background-color: #9A5DCF;
   color: #fff;
 }
 
-/* line 61, src/sass/componentes/_btns.scss */
+/* line 67, src/sass/componentes/_btns.scss */
 .btn--begin:hover, .btn--begin:focus {
   background-color: #8139c0;
   outline: none;
@@ -1780,13 +1786,7 @@
   margin-bottom: 0;
 }
 
-/* line 97, src/sass/componentes/_modal.scss */
-.modal .btn {
-  display: block;
-  width: 100%;
-}
-
-/* line 99, src/sass/componentes/_modal.scss */
+/* line 98, src/sass/componentes/_modal.scss */
 .modal form label {
   display: block;
   margin-bottom: 10px;
@@ -1794,18 +1794,18 @@
   font-size: 18px;
 }
 
-/* line 105, src/sass/componentes/_modal.scss */
+/* line 104, src/sass/componentes/_modal.scss */
 .modal form .btn {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 108, src/sass/componentes/_modal.scss */
+/* line 107, src/sass/componentes/_modal.scss */
 .modal form .btn:first-of-type {
   margin-top: 0;
 }
 
-/* line 110, src/sass/componentes/_modal.scss */
+/* line 109, src/sass/componentes/_modal.scss */
 .modal form .btn--choose {
   margin-bottom: 0;
 }
