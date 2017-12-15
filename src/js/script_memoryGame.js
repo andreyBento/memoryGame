@@ -115,6 +115,42 @@ Game.prototype.unturn = function(elementsArray){
     }, 2000);
 }
 
+Game.prototype.firstUnturn = function(elementsArray){
+    if(this.stageNumber == 1){
+        setTimeout(() => {
+            for(i = 0; i < elementsArray.length; i++){
+                elementsArray[i].setAttribute('class', 'card');
+                elementsArray[i].disabled = false;
+                elementsArray[i].innerHTML = '';
+            }
+        }, 1500);
+    } else if(this.stageNumber == 2){
+        setTimeout(() => {
+            for(i = 0; i < elementsArray.length; i++){
+                elementsArray[i].setAttribute('class', 'card');
+                elementsArray[i].disabled = false;
+                elementsArray[i].innerHTML = '';
+            }
+        }, 2500);
+    } else if(this.stageNumber == 3){
+        setTimeout(() => {
+            for(i = 0; i < elementsArray.length; i++){
+                elementsArray[i].setAttribute('class', 'card');
+                elementsArray[i].disabled = false;
+                elementsArray[i].innerHTML = '';
+            }
+        }, 3500);
+    } else if(this.stageNumber == 4){
+        setTimeout(() => {
+            for(i = 0; i < elementsArray.length; i++){
+                elementsArray[i].setAttribute('class', 'card');
+                elementsArray[i].disabled = false;
+                elementsArray[i].innerHTML = '';
+            }
+        }, 5000);
+    }
+}
+
 Game.prototype.checkMatch = function(){
     const cardOpenArray = document.querySelectorAll('.card-open');
     if(this.cardsOpen.length == 2){
@@ -170,7 +206,7 @@ Game.prototype.born = function(){
         this.addIcon(cardElementArray[i]);
     }
 
-    this.unturn(cardElementArray);
+    this.firstUnturn(cardElementArray);
 
     this.cardClick();
 }
