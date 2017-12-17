@@ -3,6 +3,8 @@
  * Desenvolvido por Andrey da Costa
  */
 
+
+// Define o construtor do jogo
 const Game = function(stageParam){
     this.cards = [];
     this.cardsMirror = [];
@@ -10,18 +12,20 @@ const Game = function(stageParam){
     this.time = '00:00';
     this.movements = 0;
     this.stageNumber = stageParam;
-    this.begin();
+    this.begin(); // starta o jogo
 }
 
+// Função que começa o jogo
 Game.prototype.begin = function(){
-    this.stage();
-    this.timer();
+    this.stage(); // Starta a função que controla as necessidades de cada fase
+    this.timer(); // Starta o contador de tempo
 }
 
+// Função que controla as necessidades das fases
 Game.prototype.stage = function(){
     const body = document.querySelector('.memory-body');
     if(this.stageNumber == 1){
-        this.createCard(4);
+        this.createCard(4); // controla a quantitade de cartas na fase
     } else if(this.stageNumber == 2){
         this.createCard(8);
     } else if(this.stageNumber == 3){
@@ -29,10 +33,11 @@ Game.prototype.stage = function(){
     } else if(this.stageNumber == 4){
         this.createCard(28);
     }
-    this.born();
-    body.setAttribute('class','memory-body stage'+ this.stageNumber);
+    this.born(); // coloca as cartas na tela
+    body.setAttribute('class','memory-body stage'+ this.stageNumber); // coloca uma classe com o numero da fase no body do jogo
 }
 
+// Função que controla o contador de tempo
 Game.prototype.timer = function(){
     let timerHtml = document.getElementById('timerHtml'),
         min = '00';
@@ -43,7 +48,7 @@ Game.prototype.timer = function(){
     this.stopTimer = function(){ 
         clearInterval(updateTime);
         timerHtml.style.color = '#666';
-    }
+    } // função que para o timer
 
     const updateTime = setInterval(function(){
         if(sec < 59){
@@ -70,16 +75,18 @@ Game.prototype.timer = function(){
             i = "0" + i;
         }
         return i;
-    }
+    } // função que adiciona um zero
 
 }
 
+// Função que conta os movimentos
 Game.prototype.moves = function(){
     this.movements++;
     let movesHtml = document.getElementById('movesHtml');
     movesHtml.innerHTML =  this.movements;
 }
 
+// Função que cria as cartas
 Game.prototype.createCard = function(quantity){
     for(i = 0; i < quantity; i++){
         let cardName = 'item' + (i + 1),
@@ -92,6 +99,7 @@ Game.prototype.createCard = function(quantity){
     }
 }
 
+// Função que adiciona os icones nas cartas
 Game.prototype.addIcon = function(item){
     let dataIcone = item.getAttribute('data-name');
 
@@ -105,6 +113,7 @@ Game.prototype.addIcon = function(item){
     }
 }
 
+// Função que desvira as cartas após elas não são o par correto
 Game.prototype.unturn = function(elementsArray){
     setTimeout(() => {
         for(i = 0; i < elementsArray.length; i++){
@@ -115,6 +124,7 @@ Game.prototype.unturn = function(elementsArray){
     }, 2000);
 }
 
+// Função que desvira as cartas no começo do jogo, com um tempo diferente para cada fase
 Game.prototype.firstUnturn = function(elementsArray){
     if(this.stageNumber == 1){
         setTimeout(() => {
@@ -151,6 +161,7 @@ Game.prototype.firstUnturn = function(elementsArray){
     }
 }
 
+// Função que verifica se as cartas abertas possuem o mesmo icone
 Game.prototype.checkMatch = function(){
     const cardOpenArray = document.querySelectorAll('.card-open');
     if(this.cardsOpen.length == 2){
@@ -172,6 +183,7 @@ Game.prototype.checkMatch = function(){
     }
 }
 
+// Função que vira a carta clicada
 Game.prototype.turnCard = function(item){
     let itemClass = item.getAttribute('class'),
         dataIcone = item.getAttribute('data-name');
@@ -191,6 +203,7 @@ Game.prototype.turnCard = function(item){
     this.checkMatch();
 }
 
+// Função que coloca as cartas na tela
 Game.prototype.born = function(){
 
     let totalCards = this.cards.concat(this.cardsMirror),
@@ -211,6 +224,7 @@ Game.prototype.born = function(){
     this.cardClick();
 }
 
+// Função que conta a quantidade de estrelas ganha na fase
 Game.prototype.starCount = function(){
     let actualStage = document.getElementById('body').classList[1];
     if(actualStage == 'stage1'){
@@ -259,6 +273,7 @@ Game.prototype.starCount = function(){
     }
 }
 
+// Função que define o usuário escolhido
 Game.prototype.defineUser = function(){
     const newUsertHtml = document.getElementById('newUser');
     let lastUserHtml = document.getElementById('lastUser'),
@@ -285,6 +300,7 @@ Game.prototype.defineUser = function(){
     }
 }
 
+// Função que checa se todas as cartas estão corretas para finalizar o jogo
 Game.prototype.checkFinish = function(){
     const cardSuccessArray = document.querySelectorAll('.success');
     if(cardSuccessArray.length == this.cardsArray.length){
@@ -293,6 +309,7 @@ Game.prototype.checkFinish = function(){
 
         window.localStorage.time = document.getElementById('timerHtml').innerHTML;
         window.localStorage.moves = document.getElementById('movesHtml').innerHTML;
+        window.localStorage.stage = this.stageNumber;
         window.localStorage.stars = this.starCount();
 
         if(this.stageNumber == 4){
@@ -303,19 +320,21 @@ Game.prototype.checkFinish = function(){
     }
 }
 
+// Função de clique nas cartas
 Game.prototype.cardClick = function(){
 
     this.cardsArray = document.querySelectorAll('.card');
     for(i = 0; i < this.cardsArray.length; i++){
         this.cardsArray[i].addEventListener('click', function(){
             let item = this;
-            game.moves();
-            game.turnCard(item);
-            game.checkFinish();
+            game.moves(); // Invoca o contador de movimentos
+            game.turnCard(item); // Vira a carta clicada
+            game.checkFinish(); // Verifica se o jogo pode ser finalizado
         });
     }
 }
 
+// Função que reseta o jogo
 Game.prototype.reset = function(){
 
     let timerHtml = document.getElementById('timerHtml'),
@@ -326,21 +345,23 @@ Game.prototype.reset = function(){
     let movesHtml = document.getElementById('movesHtml');
     movesHtml.innerHTML =  this.movements;
 
-    document.querySelector('.memory-body').innerHTML = '';
+    document.querySelector('.memory-body').innerHTML = null;
 }
 
+// Construtor de carta, utilizado para armazenar o nome dos icones e a chave identificadora
 const Card = function(name, key){
     this.name = name;
     this.key = key;
     this.template = '<button class="card card-open" disabled data-name="'+ this.name +'">' + '</button>';
 }
 
-
+// Construtor do modal
 const Modal = function(param){
     this.actualModal = param;
-    this.born();
+    this.born(); // Ativa a função de contrução do modal
 }
 
+// Função que adiciona a classe active para a quantidade correta de estrelas
 Modal.prototype.starCount = function(star1, star2, star3){
 
     if(window.localStorage.stars == 1){
@@ -355,6 +376,7 @@ Modal.prototype.starCount = function(star1, star2, star3){
     }
 }
 
+// Função que armazena o html do botão de fechar o modal
 Modal.prototype.modalCloseTemplate = function(){
     const modalClose = document.createElement('A'),
           modalCloseInfo = document.createElement('P'),
@@ -373,6 +395,7 @@ Modal.prototype.modalCloseTemplate = function(){
     return modalClose;
 }
 
+// Função que armazena o html das estrelas do modal
 Modal.prototype.modalStarsTemplate = function(){
     const modalStars = document.createElement('DIV'),
           modalStarsTitle = document.createElement('H3'),
@@ -401,6 +424,7 @@ Modal.prototype.modalStarsTemplate = function(){
     return modalStars;
 }
 
+// Função que armazena o html do formulário de definição de usuário do modal
 Modal.prototype.modalFormTemplate = function(){
     const modalForm = document.createElement('FORM'),
           modalFormLabel = document.createElement('LABEL'),
@@ -427,6 +451,7 @@ Modal.prototype.modalFormTemplate = function(){
     return modalForm;
 }
 
+// Função que armazena o html do botão de próxima fase
 Modal.prototype.modalButtonNextTemplate = function(){
     const modalButtonNext = document.createElement('BUTTON');
 
@@ -437,6 +462,7 @@ Modal.prototype.modalButtonNextTemplate = function(){
     return modalButtonNext;
 }
 
+// Função que armazena o html do botão que finaliza o modal
 Modal.prototype.modalButtonEndTemplate = function(){
     const modalButtonEnd = document.createElement('BUTTON');
 
@@ -447,6 +473,7 @@ Modal.prototype.modalButtonEndTemplate = function(){
     return modalButtonEnd;
 }
 
+// Função que armazena o html do botão que permite jogar novamente desde o começo do jogo
 Modal.prototype.modalButtonAgainTemplate = function(){
     const modalBeginAgain = document.createElement('BUTTON');
 
@@ -457,6 +484,7 @@ Modal.prototype.modalButtonAgainTemplate = function(){
     return modalBeginAgain;
 }
 
+// Função que armazena o html do botão que permite jogar novamente a fase atual
 Modal.prototype.modalButtonRetryTemplate = function(){
     const modalBeginRetry = document.createElement('BUTTON');
 
@@ -467,6 +495,7 @@ Modal.prototype.modalButtonRetryTemplate = function(){
     return modalBeginRetry;
 }
 
+// Função que armazena o html do botão de começo do jogo
 Modal.prototype.modalButtonBeginTemplate = function(){
     const modalBeginAgain = document.createElement('BUTTON');
 
@@ -477,6 +506,7 @@ Modal.prototype.modalButtonBeginTemplate = function(){
     return modalBeginAgain;
 }
 
+// Função que armazena o html do modal, dependendo do tipo do modal passado define quais as necessidades do modal
 Modal.prototype.modalTemplate = function(){
     const modal = document.createElement('DIV'),
           modalClose = this.modalCloseTemplate(),
@@ -518,6 +548,7 @@ Modal.prototype.modalTemplate = function(){
     return modal;
 }
 
+// Modifica os conteúdos textuais do modal de acordo com o modal atual
 Modal.prototype.modifyModal = function(){
     if(this.actualModal == 'success'){
         document.getElementById('modalCloseInfo').innerHTML = 'não desejo salvar';
@@ -589,6 +620,7 @@ Modal.prototype.modifyModal = function(){
     }
 }
 
+// Função que coloca o modal na tela
 Modal.prototype.born = function(){
     const overlay = document.createElement('DIV'),
           modalHtml = this.modalTemplate();
@@ -613,6 +645,7 @@ Modal.prototype.born = function(){
     this.btnClick();
 }
 
+// Função que retira o modal existente
 Modal.prototype.destroy = function(){
     let existingOverlay = document.getElementById('overlay'),
         existingModal = document.getElementById('modal');
@@ -628,6 +661,7 @@ Modal.prototype.destroy = function(){
     }, 600);
 }
 
+// Função que define os cliques de cada um dos botões do modal
 Modal.prototype.btnClick = function(){
 
     if(this.actualModal == 'success'){
@@ -635,34 +669,38 @@ Modal.prototype.btnClick = function(){
             event.preventDefault();
             document.getElementById('newUser').classList.remove('active');
             this.classList.add('active');
-        });
+        }); // Adiciona a classe active no botão com o nome do último usuário
         document.getElementById('newUser').addEventListener('focus', function(){
             document.getElementById('lastUser').classList.remove('active');
             this.classList.add('active');
-        });
+        }); // Adiciona a classe active no input de novo usuário
         document.getElementById('btnChoose').addEventListener('click', function(event){
             event.preventDefault();
             if(game.defineUser()){
                 game.modal.destroy();
                 if(game.stageNumber == 3){
                     setTimeout(function(){
-                        game.modal = new Modal('lastStage');
+                        game.modal = new Modal('lastStage'); // Verifica se a fase atual é a penúltima para poder iniciar modal específico
                     },600);
                 } else {
                     setTimeout(function(){
-                        game.modal = new Modal('nextStage');
+                        game.modal = new Modal('nextStage'); // Inicia modal de próxima fase
                     },600);
                 }
                 if(document.getElementById('rankingContainer').classList.length == 1){
-                    this.ranking = new Ranking();
+                    rank = new Ranking(); // Cria um novo ranking caso nenhum esteja na tela
+                    rank.dropdownClick(); // Starta a função de clique do botão de usuário do rank
+                } else {
+                    rank.save(); // Salva as informações do usuário
+                    rank.dropdownClick(); // Starta a função de clique do botão de usuário do rank
                 }
             }
-        });
+        }); // Controla o clique no botão de escolher usuário
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
-            game.modal.destroy();
+            game.modal.destroy(); // Destroi o modal atual
             setTimeout(function(){
-                game.modal = new Modal('nextStage');
+                game.modal = new Modal('nextStage'); // Chama o modal da próxima fase
             },600);
         });
     } else if (this.actualModal == 'nextStage' || this.actualModal == 'lastStage'){
@@ -676,18 +714,18 @@ Modal.prototype.btnClick = function(){
 
             game = new Game(newStage);
 
-        });
+        }); // Passa de fase
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
             game.modal.destroy();
-        });
+        }); // Fecha o modal
     } else if (this.actualModal == 'begin'){
         document.getElementById('btnbegin').addEventListener('click', function(){
             beginModal.destroy();
             setTimeout(() => {
                 game = new Game(1);
             }, 600);
-        })
+        }); // Começa o jogo
     } else if(this.actualModal == 'lastSuccess'){
         document.getElementById('btnbeginAgain').addEventListener('click', function(){
             game.reset();
@@ -695,10 +733,10 @@ Modal.prototype.btnClick = function(){
             setTimeout(() => {
                 game = new Game(1);
             }, 600);
-        });
+        }); // Recomeça o jogo da primeira fase
         document.getElementById('btnEnd').addEventListener('click', function(){
             beginModal.destroy();
-        });
+        }); // Finaliza o modal
     } else if(this.actualModal == 'retry'){
         document.getElementById('btnRetry').addEventListener('click', function(){
             let stageRepeat = game.stageNumber;
@@ -707,15 +745,16 @@ Modal.prototype.btnClick = function(){
             setTimeout(() => {
                 game = new Game(stageRepeat);
             }, 600);
-        });
+        }); // Recomeça a fase atual
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
             game.modal.destroy();
-        });
+        }); // Fecha o modal
     }
 
 }
 
+// Função que verifica se foi definido um usuário válido no formulário
 Modal.prototype.checkUser = function(){
     let lastUserHtml = document.getElementById('lastUser');
 
@@ -727,22 +766,138 @@ Modal.prototype.checkUser = function(){
     }
 }
 
-
+// Construtor do ranking
 const Ranking = function(){
-    this.user = window.localStorage.user;
-    this.time = window.localStorage.time;
-    this.moves = window.localStorage.moves;
-    this.stars = window.localStorage.stars;
-    this.stage = window.localStorage.stage;
+    this.booleanCheck = false;
     this.born();
 }
 
-Ranking.prototype.born = function(){
-    let gameContainer = document.getElementById('gameContainer'); 
-    this.rankingHtml = document.getElementById('rankingContainer');
-    gameContainer.classList.add('ranking-active');
-    this.rankingHtml.classList.add('active');
+// Função que armazena o html da lista geral que armazena os usuário registrados
+Ranking.prototype.rankingListTemplate = function(){
+    const userList = document.createElement('OL');
+
+    userList.setAttribute('class', 'user-list');
+    userList.setAttribute('id', 'userList');
+
+    return userList;
 }
 
-let game;
+// Função que armazena o html do item da lista geral com o nome do usuário e a lista dos detalhes
+Ranking.prototype.userListTemplate = function(){
+    const userListSave = document.createElement('LI'),
+          userNameButton = document.createElement('BUTTON'),
+          userNameButtonId = 'btnDropdown' + window.localStorage.user,
+          userName = document.createElement('SPAN'),
+          arrowDown = document.createElement('SPAN'),
+          savesList = document.createElement('OL'),
+          savesListId = window.localStorage.user + 'Saves';
+
+    userListSave.setAttribute('class', 'user-list__save');
+    userListSave.setAttribute('id', window.localStorage.user);
+    userNameButton.setAttribute('class', 'btn btn-dropdown');
+    userNameButton.setAttribute('id', userNameButtonId);
+    userName.innerHTML = window.localStorage.user;
+    arrowDown.setAttribute('class', 'oi oi-caret-bottom');
+    savesList.setAttribute('class', 'save-list');
+    savesList.setAttribute('id', savesListId);
+
+    userNameButton.appendChild(userName);
+    userNameButton.appendChild(arrowDown);
+
+    userListSave.appendChild(userNameButton);
+    userListSave.appendChild(savesList);
+
+    return userListSave;
+}
+
+// Função que armazena o html dos dados a inserir na lista de dados salvos do usuário
+Ranking.prototype.userSavesDetailsTemplate = function(){
+    const saveListItem = document.createElement('LI'),
+          saveStage = document.createElement('H4'),
+          starsDetails = document.createElement('P'),
+          starsIcon = document.createElement('SPAN'),
+          movesDetails = document.createElement('P'),
+          timeDetails = document.createElement('P');
+    
+    saveListItem.setAttribute('class', 'save-list__item');
+    starsIcon.setAttribute('class', 'oi oi-star');
+
+    saveStage.innerHTML = 'Fase : ' + window.localStorage.stage;
+
+    starsDetails.innerHTML = 'estrelas ganhas: ' + window.localStorage.stars;
+    starsDetails.appendChild(starsIcon);
+
+    movesDetails.innerHTML = 'movimentos realizados: ' + window.localStorage.moves;
+
+    timeDetails.innerHTML = 'tempo: ' + window.localStorage.time;
+
+    saveListItem.appendChild(saveStage);
+    saveListItem.appendChild(starsDetails);
+    saveListItem.appendChild(movesDetails);
+    saveListItem.appendChild(timeDetails);
+
+    return saveListItem;
+}
+
+// Função que salva os dados no usuário
+Ranking.prototype.save = function(){
+
+    var lisArray = document.getElementById('userList').children;
+
+    for(i = 0; i < lisArray.length; i++){
+        if(lisArray[i].getAttribute('id') == window.localStorage.user){
+            const saveId = window.localStorage.user + 'Saves';
+            document.getElementById(saveId).appendChild(this.userSavesDetailsTemplate());
+            return true;
+        }
+    }
+
+    document.getElementById('userList').appendChild(this.userListTemplate());
+    const saveId = window.localStorage.user + 'Saves';
+    document.getElementById(saveId).appendChild(this.userSavesDetailsTemplate());
+    return 'new user';
+    
+}
+
+// Função que coloca a estrutura geral do ranking na tela
+Ranking.prototype.born = function(){
+    let gameContainer = document.getElementById('gameContainer'),
+        rankingTitle = document.createElement('H2');
+
+    rankingTitle.innerHTML = 'Ranking';
+
+    this.rankingHtml = document.getElementById('rankingContainer');
+    gameContainer.classList.add('ranking-active');
+
+    this.rankingHtml.classList.add('active');
+    this.rankingHtml.appendChild(rankingTitle);
+    this.rankingHtml.appendChild(this.rankingListTemplate());
+
+    this.save();
+}
+
+// Função que verifica o clique no botão que abre/fecha as informações salvas do usuário
+Ranking.prototype.dropdownClick = function(){
+    const buttonId = 'btnDropdown' + window.localStorage.user,
+          buttonClasses = document.getElementById(buttonId).classList;
+    document.getElementById(buttonId).addEventListener('click', function(){
+        for(i = 0;i < buttonClasses.length; i++){
+            if(buttonClasses[i] == 'active'){
+                this.booleanCheck = true;
+            }
+        }
+        if(this.booleanCheck){
+            this.booleanCheck = false;
+            document.getElementById(buttonId).classList.remove('active');
+        } else {
+            document.getElementById(buttonId).classList.add('active');
+        }
+    });
+}
+
+//  Cria as variáveis onde seram armazenados o jogo e o ranking
+let game,
+    rank;
+
+// Armazena o primeiro modal do jogo
 const beginModal = new Modal('begin');
