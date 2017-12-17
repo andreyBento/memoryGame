@@ -7,5 +7,4 @@ Os arquivos desse projeto fazem referência a:
 
 Projeto desenvolvido com a intenção de praticar conhecimentos de Javascript adquiridos no **_nanodegree de Web designer Avançado da Udacity_**.
 
-1. Este jogo está online:
-⋅⋅1 *http://www.mirabolia.com/memorit/index.html*
+1. Este jogo está online: *http://www.mirabolia.com/memorit/index.html*
