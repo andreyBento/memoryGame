@@ -222,6 +222,7 @@ Game.prototype.born = function(){
     this.firstUnturn(cardElementArray);
 
     this.cardClick();
+    this.btnPlayClick();
 }
 
 // Função que conta a quantidade de estrelas ganha na fase
@@ -328,6 +329,14 @@ Game.prototype.cardClick = function(){
             game.checkFinish(); // Verifica se o jogo pode ser finalizado
         });
     }
+}
+
+Game.prototype.btnPlayClick = function(){
+    document.getElementById('btnPlay').addEventListener('click', function(){
+        game.reset();
+        this.style.display = 'none';
+        beginModal = new Modal('begin');
+    });
 }
 
 // Função que reseta o jogo
@@ -726,6 +735,7 @@ Modal.prototype.btnClick = function(){
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
             game.modal.destroy();
+            document.getElementById('btnPlay').style.display = 'block';
         }); // Fecha o modal
     } else if (this.actualModal == 'begin'){
         document.getElementById('btnbegin').addEventListener('click', function(){
@@ -744,6 +754,7 @@ Modal.prototype.btnClick = function(){
         }); // Recomeça o jogo da primeira fase
         document.getElementById('btnEnd').addEventListener('click', function(){
             beginModal.destroy();
+            document.getElementById('btnPlay').style.display = 'block';
         }); // Finaliza o modal
     } else if(this.actualModal == 'retry'){
         document.getElementById('btnRetry').addEventListener('click', function(){
@@ -757,6 +768,7 @@ Modal.prototype.btnClick = function(){
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
             game.modal.destroy();
+            document.getElementById('btnPlay').style.display = 'block';
         }); // Fecha o modal
     }
 
@@ -910,4 +922,4 @@ let game,
     rank;
 
 // Armazena o primeiro modal do jogo
-const beginModal = new Modal('begin');
+let beginModal = new Modal('begin');

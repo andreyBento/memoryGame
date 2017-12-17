@@ -68,6 +68,10 @@ main{
       color: #666;
     }
   }
+  .btn{
+    display: none;
+    max-width: 200px;
+  }
 }
 
 .memory-body{
@@ -88,7 +92,7 @@ main{
   }
   &.stage1{ max-width: 480px; }
   &.stage4{ zoom: 80%; }
-  @media (min-width: 920px) and (max-height: 680px){
+  @media (min-width: 920px) and (max-height: 768px){
     &.stage4{ zoom: 60%; }
   }
 }

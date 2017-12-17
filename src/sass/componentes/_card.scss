@@ -4,8 +4,8 @@
 
 .card{
     position: relative;
-    width: 110px;
-    height: 135px;
+    width: 100px;
+    height: 125px;
     margin-right: 10px;
     margin-bottom: 10px;
     color: #5DA4CF;
@@ -16,6 +16,10 @@
     box-shadow: 0 0 3px 0 rgba(0,0,0, 0.4);
     transition: 1s;
     transform: rotateY(-180deg);
+    @media (min-width: 992px){
+        width: 110px;
+        height: 135px;
+    }
     cursor: pointer;
     &.card-open{
         background-color: #DCE5FD;
