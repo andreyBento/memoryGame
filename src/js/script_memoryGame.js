@@ -115,7 +115,7 @@ Game.prototype.addIcon = function(item){
 
 // Função que desvira as cartas após elas não são o par correto
 Game.prototype.unturn = function(elementsArray){
-    setTimeout(() => {
+    setTimeout(function() {
         for(i = 0; i < elementsArray.length; i++){
             elementsArray[i].setAttribute('class', 'card');
             elementsArray[i].disabled = false;
@@ -127,7 +127,7 @@ Game.prototype.unturn = function(elementsArray){
 // Função que desvira as cartas no começo do jogo, com um tempo diferente para cada fase
 Game.prototype.firstUnturn = function(elementsArray){
     if(this.stageNumber == 1){
-        setTimeout(() => {
+        setTimeout(function() {
             for(i = 0; i < elementsArray.length; i++){
                 elementsArray[i].setAttribute('class', 'card');
                 elementsArray[i].disabled = false;
@@ -135,7 +135,7 @@ Game.prototype.firstUnturn = function(elementsArray){
             }
         }, 1500);
     } else if(this.stageNumber == 2){
-        setTimeout(() => {
+        setTimeout(function() {
             for(i = 0; i < elementsArray.length; i++){
                 elementsArray[i].setAttribute('class', 'card');
                 elementsArray[i].disabled = false;
@@ -143,7 +143,7 @@ Game.prototype.firstUnturn = function(elementsArray){
             }
         }, 2500);
     } else if(this.stageNumber == 3){
-        setTimeout(() => {
+        setTimeout(function() {
             for(i = 0; i < elementsArray.length; i++){
                 elementsArray[i].setAttribute('class', 'card');
                 elementsArray[i].disabled = false;
@@ -151,7 +151,7 @@ Game.prototype.firstUnturn = function(elementsArray){
             }
         }, 3500);
     } else if(this.stageNumber == 4){
-        setTimeout(() => {
+        setTimeout(function() {
             for(i = 0; i < elementsArray.length; i++){
                 elementsArray[i].setAttribute('class', 'card');
                 elementsArray[i].disabled = false;
@@ -312,11 +312,7 @@ Game.prototype.checkFinish = function(){
         window.localStorage.stage = this.stageNumber;
         window.localStorage.stars = this.starCount();
 
-        if(this.stageNumber == 4){
-            this.modal = new Modal('lastSuccess');
-        } else {
-            this.modal = new Modal('success');
-        }
+        this.modal = new Modal('success');
     }
 }
 
@@ -587,8 +583,6 @@ Modal.prototype.modifyModal = function(){
 
         document.getElementById('modalDesc').innerHTML = 'Este é seu último desafio. Será que consegue derrotar este boss?';
     } else if (this.actualModal == 'lastSuccess'){
-        document.getElementById('modalCloseInfo').innerHTML = 'não desejo continuar';
-        
         document.getElementById('modalEmote').setAttribute('src', 'img/emote-end.svg');
         document.getElementById('modalEmote').setAttribute('alt', 'Emoticon Surpreso');
 
@@ -682,6 +676,10 @@ Modal.prototype.btnClick = function(){
                     setTimeout(function(){
                         game.modal = new Modal('lastStage'); // Verifica se a fase atual é a penúltima para poder iniciar modal específico
                     },600);
+                } else if(game.stageNumber == 4){
+                    setTimeout(function(){
+                        game.modal = new Modal('lastSuccess'); // Verifica se a fase atual é a última para poder iniciar modal específico
+                    },600);
                 } else {
                     setTimeout(function(){
                         game.modal = new Modal('nextStage'); // Inicia modal de próxima fase
@@ -699,9 +697,19 @@ Modal.prototype.btnClick = function(){
         document.getElementById('modalClose').addEventListener('click', function(event){
             event.preventDefault();
             game.modal.destroy(); // Destroi o modal atual
-            setTimeout(function(){
-                game.modal = new Modal('nextStage'); // Chama o modal da próxima fase
-            },600);
+            if(game.stageNumber == 3){
+                setTimeout(function(){
+                    game.modal = new Modal('lastStage'); // Verifica se a fase atual é a penúltima para poder iniciar modal específico
+                },600);
+            } else if(game.stageNumber == 4){
+                setTimeout(function(){
+                    game.modal = new Modal('lastSuccess'); // Verifica se a fase atual é a última para poder iniciar modal específico
+                },600);
+            } else {
+                setTimeout(function(){
+                    game.modal = new Modal('nextStage'); // Inicia modal de próxima fase
+                },600);
+            }
         });
     } else if (this.actualModal == 'nextStage' || this.actualModal == 'lastStage'){
         document.getElementById('btnNext').addEventListener('click', function(event){
@@ -722,7 +730,7 @@ Modal.prototype.btnClick = function(){
     } else if (this.actualModal == 'begin'){
         document.getElementById('btnbegin').addEventListener('click', function(){
             beginModal.destroy();
-            setTimeout(() => {
+            setTimeout(function() {
                 game = new Game(1);
             }, 600);
         }); // Começa o jogo
@@ -730,7 +738,7 @@ Modal.prototype.btnClick = function(){
         document.getElementById('btnbeginAgain').addEventListener('click', function(){
             game.reset();
             beginModal.destroy();
-            setTimeout(() => {
+            setTimeout(function() {
                 game = new Game(1);
             }, 600);
         }); // Recomeça o jogo da primeira fase
@@ -742,7 +750,7 @@ Modal.prototype.btnClick = function(){
             let stageRepeat = game.stageNumber;
             game.reset();
             beginModal.destroy();
-            setTimeout(() => {
+            setTimeout(function() {
                 game = new Game(stageRepeat);
             }, 600);
         }); // Recomeça a fase atual
@@ -768,7 +776,6 @@ Modal.prototype.checkUser = function(){
 
 // Construtor do ranking
 const Ranking = function(){
-    this.booleanCheck = false;
     this.born();
 }
 
@@ -878,21 +885,24 @@ Ranking.prototype.born = function(){
 
 // Função que verifica o clique no botão que abre/fecha as informações salvas do usuário
 Ranking.prototype.dropdownClick = function(){
-    const buttonId = 'btnDropdown' + window.localStorage.user,
-          buttonClasses = document.getElementById(buttonId).classList;
-    document.getElementById(buttonId).addEventListener('click', function(){
-        for(i = 0;i < buttonClasses.length; i++){
-            if(buttonClasses[i] == 'active'){
-                this.booleanCheck = true;
-            }
-        }
-        if(this.booleanCheck){
+    this.buttonsArray = document.querySelectorAll('.btn-dropdown');
+    for(i = 0; i < this.buttonsArray.length; i++){
+        this.buttonsArray[i].addEventListener('click', function(){
             this.booleanCheck = false;
-            document.getElementById(buttonId).classList.remove('active');
-        } else {
-            document.getElementById(buttonId).classList.add('active');
-        }
-    });
+            let itemClasses = this.classList;
+            for(j = 0;j < itemClasses.length; j++){
+                if(itemClasses[j] == 'active'){
+                    this.booleanCheck = true;
+                }
+            }
+            if(this.booleanCheck){
+                this.booleanCheck = false;
+                this.classList.remove('active');
+            } else {
+                this.classList.add('active');
+            }
+        });
+    }
 }
 
 //  Cria as variáveis onde seram armazenados o jogo e o ranking

@@ -39,6 +39,11 @@
         list-style: none;
         padding-left: 0;
     }
+    .user-list{
+        margin-bottom: 0;
+        max-height: calc(100vh - 90px);
+        overflow: auto;
+    }
 }
 .user-list__save{
     color: #939393;
@@ -60,13 +65,15 @@
         &:focus{ outline: none; }
         &.active{
             border-color: #F0D84C;
-            & + ol{ opacity: 1; }
+            & + ol{ opacity: 1; display: block; }
         }
     }
     .save-list{
+        display: none;
         background-color: #f7f7f7;
         opacity: 0;
-        overflow: hidden;
+        max-height: calc(100vh - 150px);
+        overflow: auto;
         transition: all ease-out 0.3s;
         &__item{
             padding: 15px;
