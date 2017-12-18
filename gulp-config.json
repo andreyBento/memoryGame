@@ -7,10 +7,6 @@
     "favIcoSrcDist":"dist/favicon",
     "imgSrcPath":"src/img/*",
     "imgSrcDist":"dist/img",
-    "fontSrcPath":"src/fonts/*",
-
-    "imgSrcPath":"src/img/**/*",
-    "imgSrcDist":"dist/img",
 
     "fontSrcPath":"src/fonts/**/*",
     "fontSrcDist":"dist/fonts",
